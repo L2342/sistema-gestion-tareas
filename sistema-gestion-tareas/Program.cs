@@ -15,6 +15,7 @@ namespace sistema_gestion_tareas
             Console.WriteLine("8A es un cacorro");
             Console.WriteLine("True");
             Console.WriteLine("Tengo sueño");
+            Console.WriteLine("Salcedo es gay");
         }
     }
 }
