@@ -13,6 +13,7 @@ namespace sistema_gestion_tareas
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());
             Console.WriteLine("8A es un cacorro");
+            Console.WriteLine("True");
         }
     }
 }
