@@ -45,7 +45,7 @@
             label6.AutoSize = true;
             label6.Cursor = Cursors.Hand;
             label6.ForeColor = Color.FromArgb(116, 86, 174);
-            label6.Location = new Point(114, 430);
+            label6.Location = new Point(114, 439);
             label6.Name = "label6";
             label6.Size = new Size(70, 17);
             label6.TabIndex = 16;
@@ -54,7 +54,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(74, 403);
+            label5.Location = new Point(74, 412);
             label5.Name = "label5";
             label5.Size = new Size(151, 17);
             label5.TabIndex = 17;
@@ -66,7 +66,7 @@
             button2.Cursor = Cursors.Hand;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(40, 352);
+            button2.Location = new Point(40, 361);
             button2.Name = "button2";
             button2.Size = new Size(216, 35);
             button2.TabIndex = 14;
@@ -80,7 +80,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(40, 311);
+            button1.Location = new Point(40, 320);
             button1.Name = "button1";
             button1.Size = new Size(216, 35);
             button1.TabIndex = 15;
@@ -156,7 +156,7 @@
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(289, 489);
+            ClientSize = new Size(285, 544);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(button2);
