@@ -75,6 +75,7 @@ namespace sistema_gestion_tareas
             txtPassword.Text = "";
             txtComPassword.Text = "";
             txtusername.Focus();
+            cmbRole.SelectedIndex = 0;
         }
 
         private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)

@@ -33,7 +33,7 @@ namespace sistema_gestion_tareas
             string password = txtPassword.Text;
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Todoslos campos son obligatorios.","Inicio de Sesion fallido",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("Todos los campos son obligatorios.","Inicio de Sesion fallido",MessageBoxButtons.OK,MessageBoxIcon.Error);
     
             }
             if (true) // usuario registrado
