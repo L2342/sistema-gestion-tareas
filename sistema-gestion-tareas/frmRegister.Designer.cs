@@ -185,6 +185,7 @@
             // cmbRole
             // 
             cmbRole.Cursor = Cursors.Hand;
+            cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.FormattingEnabled = true;
             cmbRole.Items.AddRange(new object[] { "Profesor", "Estudiante" });
             cmbRole.Location = new Point(35, 348);

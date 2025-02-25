@@ -6,8 +6,8 @@ namespace sistema_gestion_tareas
         {
             InitializeComponent();
 
-        }
 
+        }
         // Conectar Base de datos
 
         private void textBox1_TextChanged(object sender, EventArgs e)
