@@ -90,6 +90,7 @@
             txtPassword.Location = new Point(35, 199);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '•';
             txtPassword.Size = new Size(216, 28);
             txtPassword.TabIndex = 2;
             // 
@@ -101,7 +102,7 @@
             label4.Size = new Size(143, 17);
             label4.TabIndex = 1;
             label4.Text = "Confirmar Contraseña";
-            label4.Click += this.label4_Click;
+            label4.Click += label4_Click;
             // 
             // txtComPassword
             // 
@@ -111,6 +112,7 @@
             txtComPassword.Location = new Point(35, 269);
             txtComPassword.Multiline = true;
             txtComPassword.Name = "txtComPassword";
+            txtComPassword.PasswordChar = '•';
             txtComPassword.Size = new Size(216, 28);
             txtComPassword.TabIndex = 2;
             txtComPassword.TextChanged += textBox1_TextChanged;
@@ -126,6 +128,7 @@
             CheckbxShowPas.TabIndex = 3;
             CheckbxShowPas.Text = "Ver Contraseña";
             CheckbxShowPas.UseVisualStyleBackColor = true;
+            CheckbxShowPas.CheckedChanged += CheckbxShowPas_CheckedChanged;
             // 
             // button1
             // 
@@ -140,6 +143,7 @@
             button1.TabIndex = 4;
             button1.Text = "Registarse";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // button2
             // 
@@ -153,6 +157,7 @@
             button2.TabIndex = 4;
             button2.Text = "Limpiar";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // label5
             // 
