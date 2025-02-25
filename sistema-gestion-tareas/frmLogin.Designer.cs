@@ -50,6 +50,7 @@
             label6.Size = new Size(70, 17);
             label6.TabIndex = 16;
             label6.Text = "Registrate";
+            label6.Click += label6_Click;
             // 
             // label5
             // 
@@ -72,6 +73,7 @@
             button2.TabIndex = 14;
             button2.Text = "Limpiar";
             button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -86,6 +88,7 @@
             button1.TabIndex = 15;
             button1.Text = "Iniciar Sesión";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // CheckbxShowPas
             // 
@@ -98,6 +101,7 @@
             CheckbxShowPas.TabIndex = 13;
             CheckbxShowPas.Text = "Ver Contraseña";
             CheckbxShowPas.UseVisualStyleBackColor = true;
+            CheckbxShowPas.CheckedChanged += CheckbxShowPas_CheckedChanged;
             // 
             // txtPassword
             // 
@@ -107,6 +111,7 @@
             txtPassword.Location = new Point(40, 232);
             txtPassword.Multiline = true;
             txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '•';
             txtPassword.Size = new Size(216, 28);
             txtPassword.TabIndex = 11;
             // 

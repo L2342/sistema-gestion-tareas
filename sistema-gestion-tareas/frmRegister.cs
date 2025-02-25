@@ -5,6 +5,7 @@ namespace sistema_gestion_tareas
         public frmRegister()
         {
             InitializeComponent();
+
         }
 
         // Conectar Base de datos
