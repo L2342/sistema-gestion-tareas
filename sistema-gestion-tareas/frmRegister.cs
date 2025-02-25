@@ -27,24 +27,30 @@ namespace sistema_gestion_tareas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (txtusername.Text == "" || txtPassword.Text == "" || txtComPassword.Text == "")
+            string username = txtusername.Text;
+            string password = txtPassword.Text;
+            string confirmPassword = txtComPassword.Text;
+            string? role = cmbRole.SelectedItem?.ToString();
+            if (string.IsNullOrWhiteSpace(username) || 
+                string.IsNullOrWhiteSpace(password) ||
+                string.IsNullOrWhiteSpace(confirmPassword) ||
+                string.IsNullOrWhiteSpace(role))
             {
-                MessageBox.Show("Todos los campos deben ser completados", "Registro Fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (txtPassword.Text != txtComPassword.Text)
+                MessageBox.Show("Todos los campos son obligatorios, incluido el rol.");
+            }else if (password != confirmPassword)
             {
                 MessageBox.Show("Las contraseñas en los campos no coinciden", "Registro fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtPassword.Text = "";
-                txtComPassword.Text = "";
+                password = "";
+                confirmPassword = "";
                 txtPassword.Focus();
             }
             else
             {
                 // Insertar Usuario Base de datos
                 MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                txtusername.Text = "";
-                txtPassword.Text = "";
-                txtComPassword.Text = "";
+                username = "";
+                password = "";
+                confirmPassword = "";
             }
         }
 

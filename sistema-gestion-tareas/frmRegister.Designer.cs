@@ -40,6 +40,8 @@
             button2 = new Button();
             label5 = new Label();
             label6 = new Label();
+            cmbRole = new ComboBox();
+            label7 = new Label();
             SuspendLayout();
             // 
             // label1
@@ -137,7 +139,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(35, 348);
+            button1.Location = new Point(35, 390);
             button1.Name = "button1";
             button1.Size = new Size(216, 35);
             button1.TabIndex = 4;
@@ -151,7 +153,7 @@
             button2.Cursor = Cursors.Hand;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(35, 403);
+            button2.Location = new Point(35, 445);
             button2.Name = "button2";
             button2.Size = new Size(216, 35);
             button2.TabIndex = 4;
@@ -162,7 +164,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(69, 461);
+            label5.Location = new Point(69, 503);
             label5.Name = "label5";
             label5.Size = new Size(146, 17);
             label5.TabIndex = 5;
@@ -173,12 +175,32 @@
             label6.AutoSize = true;
             label6.Cursor = Cursors.Hand;
             label6.ForeColor = Color.FromArgb(116, 86, 174);
-            label6.Location = new Point(111, 478);
+            label6.Location = new Point(111, 520);
             label6.Name = "label6";
             label6.Size = new Size(67, 17);
             label6.TabIndex = 5;
             label6.Text = "Ir a Login";
             label6.Click += label6_Click;
+            // 
+            // cmbRole
+            // 
+            cmbRole.Cursor = Cursors.Hand;
+            cmbRole.FormattingEnabled = true;
+            cmbRole.Items.AddRange(new object[] { "Profesor", "Estudiante" });
+            cmbRole.Location = new Point(35, 348);
+            cmbRole.Name = "cmbRole";
+            cmbRole.Size = new Size(205, 25);
+            cmbRole.TabIndex = 6;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(35, 328);
+            label7.Name = "label7";
+            label7.Size = new Size(34, 17);
+            label7.TabIndex = 1;
+            label7.Text = "Soy:";
+            label7.Click += label4_Click;
             // 
             // frmRegister
             // 
@@ -186,6 +208,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(285, 544);
+            Controls.Add(cmbRole);
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(button2);
@@ -193,6 +216,7 @@
             Controls.Add(CheckbxShowPas);
             Controls.Add(txtComPassword);
             Controls.Add(txtPassword);
+            Controls.Add(label7);
             Controls.Add(label4);
             Controls.Add(txtusername);
             Controls.Add(label3);
@@ -222,5 +246,7 @@
         private Button button2;
         private Label label5;
         private Label label6;
+        private ComboBox cmbRole;
+        private Label label7;
     }
 }
