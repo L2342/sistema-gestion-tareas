@@ -44,14 +44,16 @@ namespace sistema_gestion_tareas
                 password = "";
                 confirmPassword = "";
                 txtPassword.Focus();
-            }
-            else
+            } else if (!EsContrasenaSegura(password))
+            {
+                MessageBox.Show("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.", "contraseña invalida" , MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            
+            }else
             {
                 // Insertar Usuario Base de datos
                 MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                username = "";
-                password = "";
-                confirmPassword = "";
+                new frmLogin().Show();
+                this.Hide();
             }
         }
 
@@ -81,6 +83,21 @@ namespace sistema_gestion_tareas
         private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+        private bool EsContrasenaSegura(string password)
+        {
+            if (password.Length < 8)
+                return false;
+            if (!password.Any(char.IsUpper))
+                return false;
+            if (!password.Any(char.IsLower))
+                return false;
+            if (!password.Any(char.IsDigit))
+                return false;
+            if (!password.Any(ch => "!@#$%^&*()-_=+[]{}|;:'\",.<>?/`~".Contains(ch)))
+                return false;
+
+            return true;
         }
     }
 }
