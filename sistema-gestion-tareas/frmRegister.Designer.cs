@@ -187,11 +187,12 @@
             cmbRole.Cursor = Cursors.Hand;
             cmbRole.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRole.FormattingEnabled = true;
-            cmbRole.Items.AddRange(new object[] { "Profesor", "Estudiante" });
+            cmbRole.Items.AddRange(new object[] { " ", "Profesor", "Estudiante" });
             cmbRole.Location = new Point(35, 348);
             cmbRole.Name = "cmbRole";
             cmbRole.Size = new Size(205, 25);
             cmbRole.TabIndex = 6;
+            cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
             // label7
             // 

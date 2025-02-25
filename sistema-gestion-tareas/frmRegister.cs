@@ -31,13 +31,14 @@ namespace sistema_gestion_tareas
             string password = txtPassword.Text;
             string confirmPassword = txtComPassword.Text;
             string? role = cmbRole.SelectedItem?.ToString();
-            if (string.IsNullOrWhiteSpace(username) || 
+            if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
                 string.IsNullOrWhiteSpace(role))
             {
                 MessageBox.Show("Todos los campos son obligatorios, incluido el rol.");
-            }else if (password != confirmPassword)
+            }
+            else if (password != confirmPassword)
             {
                 MessageBox.Show("Las contraseñas en los campos no coinciden", "Registro fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 password = "";
@@ -74,6 +75,11 @@ namespace sistema_gestion_tareas
             txtPassword.Text = "";
             txtComPassword.Text = "";
             txtusername.Focus();
+        }
+
+        private void cmbRole_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
