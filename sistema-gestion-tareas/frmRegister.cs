@@ -1,3 +1,5 @@
+using System.Text.RegularExpressions;
+
 namespace sistema_gestion_tareas
 {
     public partial class frmRegister : Form
@@ -30,10 +32,12 @@ namespace sistema_gestion_tareas
             string username = txtusername.Text;
             string password = txtPassword.Text;
             string confirmPassword = txtComPassword.Text;
+            string email = txtEmail.Text;
             string? role = cmbRole.SelectedItem?.ToString();
             if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
+                string.IsNullOrEmpty(email) ||
                 string.IsNullOrWhiteSpace(role))
             {
                 MessageBox.Show("Todos los campos son obligatorios, incluido el rol", "Registro fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -44,11 +48,17 @@ namespace sistema_gestion_tareas
                 password = "";
                 confirmPassword = "";
                 txtPassword.Focus();
-            } else if (!EsContrasenaSegura(password))
+            }
+            else if (!EsContrasenaSegura(password))
             {
-                MessageBox.Show("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.", "contraseña invalida" , MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            
-            }else
+                MessageBox.Show("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.", "contraseña invalida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+            }
+            else if (!EsCorreoValido(email))
+            {
+                MessageBox.Show("Por favor, ingresa un correo electrónico válido.", "Correo Invalido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
             {
                 // Insertar Usuario Base de datos
                 MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -76,6 +86,7 @@ namespace sistema_gestion_tareas
             txtusername.Text = "";
             txtPassword.Text = "";
             txtComPassword.Text = "";
+            txtEmail.Text = "";
             txtusername.Focus();
             cmbRole.SelectedIndex = 0;
         }
@@ -98,6 +109,17 @@ namespace sistema_gestion_tareas
                 return false;
 
             return true;
+        }
+        private bool EsCorreoValido(string email)
+        {
+            // Expresión regular para validar el correo electrónico
+            string patron = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+            return Regex.IsMatch(email, patron);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
