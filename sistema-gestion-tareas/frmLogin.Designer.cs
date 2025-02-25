@@ -45,7 +45,7 @@
             label6.AutoSize = true;
             label6.Cursor = Cursors.Hand;
             label6.ForeColor = Color.FromArgb(116, 86, 174);
-            label6.Location = new Point(114, 439);
+            label6.Location = new Point(116, 473);
             label6.Name = "label6";
             label6.Size = new Size(70, 17);
             label6.TabIndex = 16;
@@ -55,7 +55,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(74, 412);
+            label5.Location = new Point(76, 446);
             label5.Name = "label5";
             label5.Size = new Size(151, 17);
             label5.TabIndex = 17;
@@ -67,7 +67,7 @@
             button2.Cursor = Cursors.Hand;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(40, 361);
+            button2.Location = new Point(40, 374);
             button2.Name = "button2";
             button2.Size = new Size(216, 35);
             button2.TabIndex = 14;

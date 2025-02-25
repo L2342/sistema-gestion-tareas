@@ -139,7 +139,7 @@
             button1.FlatAppearance.BorderSize = 0;
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = Color.White;
-            button1.Location = new Point(35, 390);
+            button1.Location = new Point(32, 410);
             button1.Name = "button1";
             button1.Size = new Size(216, 35);
             button1.TabIndex = 4;
@@ -153,7 +153,7 @@
             button2.Cursor = Cursors.Hand;
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = Color.FromArgb(116, 86, 174);
-            button2.Location = new Point(35, 445);
+            button2.Location = new Point(32, 465);
             button2.Name = "button2";
             button2.Size = new Size(216, 35);
             button2.TabIndex = 4;
