@@ -36,7 +36,7 @@ namespace sistema_gestion_tareas
                 string.IsNullOrWhiteSpace(confirmPassword) ||
                 string.IsNullOrWhiteSpace(role))
             {
-                MessageBox.Show("Todos los campos son obligatorios, incluido el rol.");
+                MessageBox.Show("Todos los campos son obligatorios, incluido el rol", "Registro fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (password != confirmPassword)
             {
