@@ -62,7 +62,7 @@ namespace sistema_gestion_tareas
             {
                 // Insertar Usuario Base de datos
                 MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                new frmLogin().Show();
+                new dashboardProfesores().Show();
                 this.Hide();
             }
         }
