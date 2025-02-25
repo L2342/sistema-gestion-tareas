@@ -29,7 +29,13 @@ namespace sistema_gestion_tareas
         private void button1_Click(object sender, EventArgs e)
         {
             // validacion base de datos
-
+            string username = txtusername.Text;
+            string password = txtPassword.Text;
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Todos los campos son obligatorios.","Inicio de Sesion fallido",MessageBoxButtons.OK,MessageBoxIcon.Error);
+    
+            }
             if (true) // usuario registrado
             {
                 // llevar al dashboard dependiendo de su rol
@@ -38,8 +44,8 @@ namespace sistema_gestion_tareas
             {
                 // usuario no identificado o datos incorrectos 
                 MessageBox.Show("Usuario o Contraseña Invalidos, por favor intente nuevamente", "Inicio Sesión fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtusername.Text = "";
-                txtPassword.Text = "";
+                username = "";
+                password = "";
                 txtusername.Focus();
             }
         }
