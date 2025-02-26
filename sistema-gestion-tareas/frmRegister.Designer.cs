@@ -53,17 +53,17 @@
             label1.ForeColor = Color.FromArgb(116, 86, 174);
             label1.Location = new Point(28, 21);
             label1.Name = "label1";
-            label1.Size = new Size(157, 27);
+            label1.Size = new Size(194, 34);
             label1.TabIndex = 0;
             label1.Text = "Empecemos";
-            label1.Click += label1_Click;
+            //label1.Click += label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Location = new Point(35, 65);
             label2.Name = "label2";
-            label2.Size = new Size(127, 17);
+            label2.Size = new Size(164, 23);
             label2.TabIndex = 1;
             label2.Text = "Nombre de usuario";
             // 
@@ -83,7 +83,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(35, 132);
             label3.Name = "label3";
-            label3.Size = new Size(77, 17);
+            label3.Size = new Size(99, 23);
             label3.TabIndex = 1;
             label3.Text = "Contraseña";
             // 
@@ -95,7 +95,7 @@
             txtPassword.Location = new Point(35, 152);
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '•';
-            txtPassword.Size = new Size(216, 21);
+            txtPassword.Size = new Size(216, 27);
             txtPassword.TabIndex = 2;
             // 
             // label4
@@ -103,7 +103,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(35, 202);
             label4.Name = "label4";
-            label4.Size = new Size(143, 17);
+            label4.Size = new Size(186, 23);
             label4.TabIndex = 1;
             label4.Text = "Confirmar Contraseña";
             label4.Click += label4_Click;
@@ -116,7 +116,7 @@
             txtComPassword.Location = new Point(35, 222);
             txtComPassword.Name = "txtComPassword";
             txtComPassword.PasswordChar = '•';
-            txtComPassword.Size = new Size(216, 21);
+            txtComPassword.Size = new Size(216, 27);
             txtComPassword.TabIndex = 2;
             txtComPassword.TextChanged += textBox1_TextChanged;
             // 
@@ -127,7 +127,7 @@
             CheckbxShowPas.FlatStyle = FlatStyle.Flat;
             CheckbxShowPas.Location = new Point(131, 256);
             CheckbxShowPas.Name = "CheckbxShowPas";
-            CheckbxShowPas.Size = new Size(117, 21);
+            CheckbxShowPas.Size = new Size(148, 27);
             CheckbxShowPas.TabIndex = 3;
             CheckbxShowPas.Text = "Ver Contraseña";
             CheckbxShowPas.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(69, 503);
             label5.Name = "label5";
-            label5.Size = new Size(146, 17);
+            label5.Size = new Size(184, 23);
             label5.TabIndex = 5;
             label5.Text = "¿Ya tienes una cuenta?";
             // 
@@ -178,7 +178,7 @@
             label6.ForeColor = Color.FromArgb(116, 86, 174);
             label6.Location = new Point(111, 520);
             label6.Name = "label6";
-            label6.Size = new Size(67, 17);
+            label6.Size = new Size(86, 23);
             label6.TabIndex = 5;
             label6.Text = "Ir a Login";
             label6.Click += label6_Click;
@@ -191,7 +191,7 @@
             cmbRole.Items.AddRange(new object[] { " ", "Profesor", "Estudiante" });
             cmbRole.Location = new Point(35, 363);
             cmbRole.Name = "cmbRole";
-            cmbRole.Size = new Size(205, 25);
+            cmbRole.Size = new Size(205, 29);
             cmbRole.TabIndex = 6;
             cmbRole.SelectedIndexChanged += cmbRole_SelectedIndexChanged;
             // 
@@ -200,7 +200,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(35, 343);
             label7.Name = "label7";
-            label7.Size = new Size(34, 17);
+            label7.Size = new Size(44, 23);
             label7.TabIndex = 1;
             label7.Text = "Soy:";
             label7.Click += label4_Click;
@@ -210,7 +210,7 @@
             label8.AutoSize = true;
             label8.Location = new Point(35, 278);
             label8.Name = "label8";
-            label8.Size = new Size(121, 17);
+            label8.Size = new Size(157, 23);
             label8.TabIndex = 1;
             label8.Text = "Correo Electrónico";
             // 
@@ -221,12 +221,12 @@
             txtEmail.Font = new Font("MS UI Gothic", 15.75F);
             txtEmail.Location = new Point(35, 298);
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(216, 21);
+            txtEmail.Size = new Size(216, 27);
             txtEmail.TabIndex = 2;
             // 
             // frmRegister
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(285, 544);
@@ -252,6 +252,7 @@
             Name = "frmRegister";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            Load += frmRegister_Load;
             ResumeLayout(false);
             PerformLayout();
         }

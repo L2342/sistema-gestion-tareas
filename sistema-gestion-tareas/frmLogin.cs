@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -31,15 +32,33 @@ namespace sistema_gestion_tareas
             // validacion base de datos
             string username = txtusername.Text;
             string password = txtPassword.Text;
+
+            //BACKEND
+            // Crear instancia de la clase UsuariosBD
+            UsuariosBD usuariosBD = new UsuariosBD();
+
+            // Intentar validar el login
+            bool loginValido = usuariosBD.ValidarLogin(username, password);
+
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Todos los campos son obligatorios.","Inicio de Sesion fallido",MessageBoxButtons.OK,MessageBoxIcon.Error);
-    
+                MessageBox.Show("Todos los campos son obligatorios.", "Inicio de Sesion fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
-            if (true) // usuario registrado
+            if (loginValido)
             {
-                // llevar al dashboard dependiendo de su rol
-            }
+                // Obtener información del usuario
+                DataTable datosUsuario = usuariosBD.ObtenerUsuario(username);
+
+                if (datosUsuario != null && datosUsuario.Rows.Count > 0)
+                {
+                    Debug.WriteLine("Login hecho");
+                    // Guardar datos de sesión (puedes usar variables estáticas, propiedades de aplicación, etc.)
+                    int idUsuario = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
+                    string email = datosUsuario.Rows[0]["email"].ToString();
+                    // string role = datosUsuario.Rows[0]["rol"].ToString();
+                }
+            }//BACKEND
             else
             {
                 // usuario no identificado o datos incorrectos 
@@ -48,6 +67,11 @@ namespace sistema_gestion_tareas
                 password = "";
                 txtusername.Focus();
             }
+            if (true) // usuario registrado
+            {
+                // llevar al dashboard dependiendo de su rol
+            }
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -73,6 +97,17 @@ namespace sistema_gestion_tareas
         {
             new frmRegister().Show();
             this.Hide();
+        }
+
+        private void frmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

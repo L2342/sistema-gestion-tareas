@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Text.RegularExpressions;
 
 namespace sistema_gestion_tareas
@@ -65,6 +66,27 @@ namespace sistema_gestion_tareas
                 new dashboardProfesores().Show();
                 this.Hide();
             }
+            //BACKEND
+
+            // Crear instancia de la clase UsuariosBD
+            UsuariosBD usuariosBD = new UsuariosBD();
+
+            // Intentar registrar el usuario
+            bool registroExitoso = usuariosBD.RegistrarUsuario(username, password, confirmPassword, email, role);
+
+            if (registroExitoso)
+            {
+                //Debug.WriteLine("Usuario registrado correctamente.");
+                MessageBox.Show("Usuario registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // Limpiar campos o redirigir a otra pantalla
+                //button2_Click();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo registrar el usuario. El nombre de usuario o email ya podrían existir.",
+                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            //BACKEND
         }
 
         private void CheckbxShowPas_CheckedChanged(object sender, EventArgs e)
@@ -117,7 +139,13 @@ namespace sistema_gestion_tareas
             return Regex.IsMatch(email, patron);
         }
 
-        private void label1_Click(object sender, EventArgs e)
+
+        private void btnRegistrar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void frmRegister_Load(object sender, EventArgs e)
         {
 
         }

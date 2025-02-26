@@ -47,7 +47,7 @@
             label6.ForeColor = Color.FromArgb(116, 86, 174);
             label6.Location = new Point(116, 473);
             label6.Name = "label6";
-            label6.Size = new Size(70, 17);
+            label6.Size = new Size(92, 23);
             label6.TabIndex = 16;
             label6.Text = "Registrate";
             label6.Click += label6_Click;
@@ -57,7 +57,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(76, 446);
             label5.Name = "label5";
-            label5.Size = new Size(151, 17);
+            label5.Size = new Size(191, 23);
             label5.TabIndex = 17;
             label5.Text = "¿No tienes una cuenta?";
             // 
@@ -97,7 +97,7 @@
             CheckbxShowPas.FlatStyle = FlatStyle.Flat;
             CheckbxShowPas.Location = new Point(136, 266);
             CheckbxShowPas.Name = "CheckbxShowPas";
-            CheckbxShowPas.Size = new Size(117, 21);
+            CheckbxShowPas.Size = new Size(148, 27);
             CheckbxShowPas.TabIndex = 13;
             CheckbxShowPas.Text = "Ver Contraseña";
             CheckbxShowPas.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(40, 212);
             label3.Name = "label3";
-            label3.Size = new Size(77, 17);
+            label3.Size = new Size(99, 23);
             label3.TabIndex = 8;
             label3.Text = "Contraseña";
             // 
@@ -140,7 +140,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(40, 145);
             label2.Name = "label2";
-            label2.Size = new Size(127, 17);
+            label2.Size = new Size(164, 23);
             label2.TabIndex = 9;
             label2.Text = "Nombre de usuario";
             // 
@@ -151,14 +151,14 @@
             label1.ForeColor = Color.FromArgb(116, 86, 174);
             label1.Location = new Point(33, 101);
             label1.Name = "label1";
-            label1.Size = new Size(179, 27);
+            label1.Size = new Size(217, 34);
             label1.TabIndex = 6;
             label1.Text = "Iniciar Sesión";
             label1.Click += label1_Click;
             // 
             // frmLogin
             // 
-            AutoScaleDimensions = new SizeF(8F, 17F);
+            AutoScaleDimensions = new SizeF(10F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(285, 544);
@@ -178,6 +178,7 @@
             Name = "frmLogin";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "frmLogin";
+            Load += frmLogin_Load;
             ResumeLayout(false);
             PerformLayout();
         }
