@@ -112,6 +112,7 @@
             BtnLogOut.Text = "Cerrar Sesión";
             BtnLogOut.TextImageRelation = TextImageRelation.TextBeforeImage;
             BtnLogOut.UseVisualStyleBackColor = true;
+            BtnLogOut.Click += BtnLogOut_Click;
             // 
             // BtnDashboard
             // 
@@ -226,6 +227,7 @@
             btnCambiarEstado.TabIndex = 6;
             btnCambiarEstado.Text = "Cambiar Estado";
             btnCambiarEstado.UseVisualStyleBackColor = false;
+            btnCambiarEstado.Click += btnCambiarEstado_Click;
             // 
             // label6
             // 
@@ -260,6 +262,7 @@
             button1.TabIndex = 6;
             button1.Text = "Ordenar";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // btnOrdenar
             // 
