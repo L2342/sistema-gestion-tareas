@@ -138,9 +138,9 @@
             label1.ForeColor = Color.Purple;
             label1.Location = new Point(34, 98);
             label1.Name = "label1";
-            label1.Size = new Size(115, 16);
+            label1.Size = new Size(117, 16);
             label1.TabIndex = 1;
-            label1.Text = "Hola Username";
+            label1.Text = "Hola Profesor/a";
             // 
             // pictureBox1
             // 
@@ -227,6 +227,7 @@
             BtnEliminarTarea.TabIndex = 3;
             BtnEliminarTarea.Text = "Eliminar Tarea";
             BtnEliminarTarea.UseVisualStyleBackColor = false;
+            BtnEliminarTarea.Click += BtnEliminarTarea_Click;
             // 
             // dashboardProfesores
             // 
