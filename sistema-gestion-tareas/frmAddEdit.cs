@@ -1,34 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace sistema_gestion_tareas
 {
-
     public partial class frmAddEdit : Form
     {
         private int? tareaID; // Identificador de la tarea (null para crear, valor para editar)
+        private ConexionDB conexionDB;
+
         public frmAddEdit(int? tareaID = null)
         {
             InitializeComponent();
             this.tareaID = tareaID;
+            conexionDB = new ConexionDB();
             if (tareaID.HasValue)
             {
                 CargarDatosTarea(tareaID.Value); // Cargar datos si estamos en modo edición
             }
         }
+
         private void CargarDatosTarea(int tareaID)
         {
-            // AQUI SE IMPLEMENTA EL BACK PARA CARGAR LOS DATOS DE LA TAREA DE LA BASE DE DATOS
-            // PARA RELLENAR LOS CAMPOS DEL FORMULARIO
-        }
+            MySqlConnection conexion = null;
+            try
+            {
+                conexion = conexionDB.Conectar();
+                string consulta = "SELECT titulo, descripcion, fecha_entrega, grupo_asignado, materia FROM tareas WHERE id = @tareaID";
+                MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                cmd.Parameters.AddWithValue("@tareaID", tareaID);
 
+                MySqlDataReader reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    txtTitulo.Text = reader["titulo"].ToString();
+                    txtDescription.Text = reader["descripcion"].ToString();
+                    dtpFechaEntrega.Value = Convert.ToDateTime(reader["fecha_entrega"]);
+                    // Asignar otros campos según sea necesario
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
+            }
+        }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -38,7 +63,7 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("El título es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if(string.IsNullOrWhiteSpace(txtDescription.Text))
+            if (string.IsNullOrWhiteSpace(txtDescription.Text))
             {
                 MessageBox.Show("La descripción es obligatoria.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -65,25 +90,48 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Debes seleccionar una asignatura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+
+            MySqlConnection conexion = null;
             try
             {
-                // PARA EL BACK
-                //AQUI IMPLEMENTAR GUARDAR LA INFORMACION EN LA BASE DE DATOS
-
-                if(tareaID.HasValue)
+                conexion = conexionDB.Conectar();
+                string consulta;
+                if (tareaID.HasValue)
                 {
                     // Modificar tarea existente
+                    consulta = "UPDATE tareas SET titulo = @titulo, descripcion = @descripcion, fecha_entrega = @fechaEntrega, grupo_asignado = @grupoAsignado, materia = @materia WHERE id = @tareaID";
                 }
                 else
                 {
                     // Crear nueva tarea
+                    consulta = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, grupo_asignado, materia) VALUES (@titulo, @descripcion, @fechaEntrega, @grupoAsignado, @materia)";
                 }
+
+                MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                cmd.Parameters.AddWithValue("@titulo", txtTitulo.Text);
+                cmd.Parameters.AddWithValue("@descripcion", txtDescription.Text);
+                cmd.Parameters.AddWithValue("@fechaEntrega", dtpFechaEntrega.Value);
+                cmd.Parameters.AddWithValue("@grupoAsignado", string.Join(",", estudiantesAsignados));
+                cmd.Parameters.AddWithValue("@materia", asignatura);
+                if (tareaID.HasValue)
+                {
+                    cmd.Parameters.AddWithValue("@tareaID", tareaID.Value);
+                }
+
+                cmd.ExecuteNonQuery();
                 MessageBox.Show(tareaID.HasValue ? "Tarea actualizada correctamente." : "Tarea creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al guardar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                if (conexion != null && conexion.State == ConnectionState.Open)
+                {
+                    conexion.Close();
+                }
             }
         }
 
@@ -93,6 +141,21 @@ namespace sistema_gestion_tareas
         }
 
         private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtTitulo_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dtpFechaEntrega_ValueChanged(object sender, EventArgs e)
         {
 
         }
