@@ -195,6 +195,7 @@
             BtnCrearTarea.TabIndex = 3;
             BtnCrearTarea.Text = "Agregar Tarea";
             BtnCrearTarea.UseVisualStyleBackColor = false;
+            BtnCrearTarea.Click += BtnCrearTarea_Click;
             // 
             // BtnEditarTarea
             // 

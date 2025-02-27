@@ -38,7 +38,20 @@ namespace sistema_gestion_tareas
 
         private void BtnLogOut_Leave(object sender, EventArgs e)
         {
-             BtnLogOut.BackColor= Color.White;
+            BtnLogOut.BackColor = Color.White;
+        }
+
+        private void cargarTareas()
+        {
+            // AQUI SE IMPLEMENTA EL BACK PARA ACTUALIZAR EL DATAGRID VIEW CON LAS TAREAS DE LA BASE DE DATOS
+            //Añade un método en el formulario del Dashboard que cargue los datos filtrados por el ID del docente
+        }
+
+        private void BtnCrearTarea_Click(object sender, EventArgs e)
+        {
+            frmAddEdit formulario = new frmAddEdit();
+            formulario.ShowDialog();
+            cargarTareas();
         }
     }
 }
