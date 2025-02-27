@@ -19,6 +19,7 @@ namespace sistema_gestion_tareas
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            string? asignatura = cbxAsignaturas.SelectedItem?.ToString();
             if (string.IsNullOrWhiteSpace(txtTitulo.Text))
             {
                 MessageBox.Show("El título es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -41,6 +42,11 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Debes asignar al menos un grupo de estudiantes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if (string.IsNullOrWhiteSpace(asignatura))
+            {
+                MessageBox.Show("Debes seleccionar una asignatura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             // PARA EL BACK
             //AQUI IMPLEMENTAR GUARDAR LA INFORMACION EN LA BASE DE DATOS
@@ -53,6 +59,11 @@ namespace sistema_gestion_tareas
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -41,6 +41,8 @@
             chkListaEstudiantes = new CheckedListBox();
             btnGuardar = new Button();
             btnCancelar = new Button();
+            label6 = new Label();
+            cbxAsignaturas = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -48,7 +50,7 @@
             label1.AutoSize = true;
             label1.Font = new Font("Nirmala UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.Navy;
-            label1.Location = new Point(200, 20);
+            label1.Location = new Point(210, 9);
             label1.Name = "label1";
             label1.Size = new Size(177, 25);
             label1.TabIndex = 0;
@@ -58,7 +60,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(23, 71);
+            label2.Location = new Point(23, 56);
             label2.Name = "label2";
             label2.Size = new Size(47, 20);
             label2.TabIndex = 1;
@@ -67,7 +69,7 @@
             // txtTitulo
             // 
             txtTitulo.Font = new Font("Nirmala UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtTitulo.Location = new Point(165, 64);
+            txtTitulo.Location = new Point(165, 56);
             txtTitulo.Name = "txtTitulo";
             txtTitulo.PlaceholderText = "Escribe el título de la tarea";
             txtTitulo.Size = new Size(400, 27);
@@ -77,7 +79,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(23, 145);
+            label3.Location = new Point(23, 108);
             label3.Name = "label3";
             label3.Size = new Size(87, 20);
             label3.TabIndex = 1;
@@ -86,7 +88,7 @@
             // txtDescription
             // 
             txtDescription.BorderStyle = BorderStyle.FixedSingle;
-            txtDescription.Location = new Point(165, 110);
+            txtDescription.Location = new Point(165, 108);
             txtDescription.Name = "txtDescription";
             txtDescription.Size = new Size(400, 80);
             txtDescription.TabIndex = 3;
@@ -101,7 +103,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(23, 224);
+            label4.Location = new Point(23, 216);
             label4.Name = "label4";
             label4.Size = new Size(123, 20);
             label4.TabIndex = 1;
@@ -110,7 +112,7 @@
             // dtpFechaEntrega
             // 
             dtpFechaEntrega.Format = DateTimePickerFormat.Short;
-            dtpFechaEntrega.Location = new Point(165, 222);
+            dtpFechaEntrega.Location = new Point(165, 216);
             dtpFechaEntrega.Name = "dtpFechaEntrega";
             dtpFechaEntrega.Size = new Size(200, 23);
             dtpFechaEntrega.TabIndex = 4;
@@ -119,7 +121,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(23, 316);
+            label5.Location = new Point(23, 273);
             label5.Name = "label5";
             label5.Size = new Size(127, 20);
             label5.TabIndex = 1;
@@ -128,7 +130,7 @@
             // chkListaEstudiantes
             // 
             chkListaEstudiantes.FormattingEnabled = true;
-            chkListaEstudiantes.Location = new Point(165, 295);
+            chkListaEstudiantes.Location = new Point(165, 273);
             chkListaEstudiantes.Name = "chkListaEstudiantes";
             chkListaEstudiantes.Size = new Size(250, 94);
             chkListaEstudiantes.TabIndex = 5;
@@ -140,7 +142,7 @@
             btnGuardar.FlatStyle = FlatStyle.Flat;
             btnGuardar.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGuardar.ForeColor = SystemColors.ControlLight;
-            btnGuardar.Location = new Point(290, 447);
+            btnGuardar.Location = new Point(290, 539);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(125, 41);
             btnGuardar.TabIndex = 6;
@@ -155,7 +157,7 @@
             btnCancelar.FlatStyle = FlatStyle.Flat;
             btnCancelar.Font = new Font("Nirmala UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnCancelar.ForeColor = SystemColors.ControlLight;
-            btnCancelar.Location = new Point(440, 447);
+            btnCancelar.Location = new Point(440, 539);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(125, 41);
             btnCancelar.TabIndex = 6;
@@ -163,18 +165,40 @@
             btnCancelar.UseVisualStyleBackColor = false;
             btnCancelar.Click += btnCancelar_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(23, 397);
+            label6.Name = "label6";
+            label6.Size = new Size(162, 20);
+            label6.TabIndex = 1;
+            label6.Text = "Asignatura relacionada";
+            label6.Click += label6_Click;
+            // 
+            // cbxAsignaturas
+            // 
+            cbxAsignaturas.FormattingEnabled = true;
+            cbxAsignaturas.Items.AddRange(new object[] { "", "Matemáticas", "Lenguas", "Análisis Literario", "Ciencias Sociales y ciudadanas", "Fisica", "Quimica", "Biologia", "Ingles", "Filosofia", "Religión" });
+            cbxAsignaturas.Location = new Point(202, 403);
+            cbxAsignaturas.Name = "cbxAsignaturas";
+            cbxAsignaturas.Size = new Size(185, 23);
+            cbxAsignaturas.TabIndex = 7;
+            // 
             // frmAddEdit
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ControlLight;
-            ClientSize = new Size(600, 500);
+            ClientSize = new Size(600, 592);
+            Controls.Add(cbxAsignaturas);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
             Controls.Add(chkListaEstudiantes);
             Controls.Add(dtpFechaEntrega);
             Controls.Add(txtDescription);
             Controls.Add(txtTitulo);
+            Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -204,5 +228,7 @@
         private CheckedListBox chkListaEstudiantes;
         private Button btnGuardar;
         private Button btnCancelar;
+        private Label label6;
+        private ComboBox cbxAsignaturas;
     }
 }
