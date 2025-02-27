@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sistema_gestion_tareas
-{
+{   
+
     public partial class frmLogin : Form
     {
         public frmLogin()
@@ -29,22 +30,21 @@ namespace sistema_gestion_tareas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // validacion base de datos
             string username = txtusername.Text;
             string password = txtPassword.Text;
-
-            //BACKEND
-            // Crear instancia de la clase UsuariosBD
-            UsuariosBD usuariosBD = new UsuariosBD();
-
-            // Intentar validar el login
-            bool loginValido = usuariosBD.ValidarLogin(username, password);
 
             if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
             {
                 MessageBox.Show("Todos los campos son obligatorios.", "Inicio de Sesion fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                return;
             }
+
+            // Crear instancia de la clase UsuariosBD
+            UsuariosBD usuariosBD = new UsuariosBD();
+
+            // Intentar validar el login
+            bool loginValido = usuariosBD.ValidarLogin(username, password, "Estudiante") || usuariosBD.ValidarLogin(username, password, "Profesor");
+
             if (loginValido)
             {
                 // Obtener información del usuario
@@ -56,25 +56,28 @@ namespace sistema_gestion_tareas
                     // Guardar datos de sesión (puedes usar variables estáticas, propiedades de aplicación, etc.)
                     int idUsuario = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
                     string email = datosUsuario.Rows[0]["email"].ToString();
-                    // string role = datosUsuario.Rows[0]["rol"].ToString();
+                    string role = datosUsuario.Rows[0]["rol"].ToString();
+
+                    // Llevar al dashboard dependiendo de su rol
+                    if (role == "Estudiante")
+                    {
+                        // Redirigir al dashboard de estudiantes
+                    }
+                    else if (role == "Profesor")
+                    {
+                        // Redirigir al dashboard de profesores
+                    }
                 }
-            }//BACKEND
+            }
             else
             {
-                // usuario no identificado o datos incorrectos 
                 MessageBox.Show("Usuario o Contraseña Invalidos, por favor intente nuevamente", "Inicio Sesión fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                username = "";
-                password = "";
+                txtusername.Text = "";
+                txtPassword.Text = "";
                 txtusername.Focus();
             }
-            if (true) // usuario registrado => ajustar conficional
-            {
-                // llevar al dashboard dependiendo de su rol
-                
-                //PENDIENTE VALIDACION DE ROL
-            }
-
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {

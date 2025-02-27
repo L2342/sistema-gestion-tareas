@@ -35,6 +35,7 @@ namespace sistema_gestion_tareas
             string confirmPassword = txtComPassword.Text;
             string email = txtEmail.Text;
             string? role = cmbRole.SelectedItem?.ToString();
+
             if (string.IsNullOrWhiteSpace(username) ||
                 string.IsNullOrWhiteSpace(password) ||
                 string.IsNullOrWhiteSpace(confirmPassword) ||
@@ -53,7 +54,6 @@ namespace sistema_gestion_tareas
             else if (!EsContrasenaSegura(password))
             {
                 MessageBox.Show("La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial.", "contraseña invalida", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
             }
             else if (!EsCorreoValido(email))
             {
@@ -61,32 +61,23 @@ namespace sistema_gestion_tareas
             }
             else
             {
-                // Insertar Usuario Base de datos
-                MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                new frmLogin().Show();
-                this.Hide();
-            }
-            //BACKEND
+                // Crear instancia de la clase UsuariosBD
+                UsuariosBD usuariosBD = new UsuariosBD();
 
-            // Crear instancia de la clase UsuariosBD
-            UsuariosBD usuariosBD = new UsuariosBD();
+                // Intentar registrar el usuario
+                bool registroExitoso = usuariosBD.RegistrarUsuario(username, password, confirmPassword, email, role);
 
-            // Intentar registrar el usuario
-            bool registroExitoso = usuariosBD.RegistrarUsuario(username, password, confirmPassword, email, role);
-
-            if (registroExitoso)
-            {
-                //Debug.WriteLine("Usuario registrado correctamente.");
-                MessageBox.Show("Usuario registrado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                // Limpiar campos o redirigir a otra pantalla
-                //button2_Click();
+                if (registroExitoso)
+                {
+                    MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    new frmLogin().Show();
+                    this.Hide();
+                }
+                else
+                {
+                    MessageBox.Show("No se pudo registrar el usuario. El nombre de usuario o email ya podrían existir.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-            else
-            {
-                MessageBox.Show("No se pudo registrar el usuario. El nombre de usuario o email ya podrían existir.",
-                                "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            //BACKEND
         }
 
         private void CheckbxShowPas_CheckedChanged(object sender, EventArgs e)
