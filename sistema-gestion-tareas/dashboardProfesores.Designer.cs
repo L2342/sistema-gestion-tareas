@@ -40,8 +40,8 @@
             label3 = new Label();
             dataGridView1 = new DataGridView();
             BtnCrearTarea = new Button();
-            button1 = new Button();
-            button2 = new Button();
+            BtnEditarTarea = new Button();
+            BtnEliminarTarea = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -196,35 +196,35 @@
             BtnCrearTarea.Text = "Agregar Tarea";
             BtnCrearTarea.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // BtnEditarTarea
             // 
-            button1.BackColor = Color.Purple;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatAppearance.BorderSize = 0;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = Color.White;
-            button1.Location = new Point(396, 101);
-            button1.Name = "button1";
-            button1.Size = new Size(147, 43);
-            button1.TabIndex = 3;
-            button1.Text = "Editar Tarea";
-            button1.UseVisualStyleBackColor = false;
+            BtnEditarTarea.BackColor = Color.Purple;
+            BtnEditarTarea.Cursor = Cursors.Hand;
+            BtnEditarTarea.FlatAppearance.BorderSize = 0;
+            BtnEditarTarea.FlatStyle = FlatStyle.Flat;
+            BtnEditarTarea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnEditarTarea.ForeColor = Color.White;
+            BtnEditarTarea.Location = new Point(396, 101);
+            BtnEditarTarea.Name = "BtnEditarTarea";
+            BtnEditarTarea.Size = new Size(147, 43);
+            BtnEditarTarea.TabIndex = 3;
+            BtnEditarTarea.Text = "Editar Tarea";
+            BtnEditarTarea.UseVisualStyleBackColor = false;
             // 
-            // button2
+            // BtnEliminarTarea
             // 
-            button2.BackColor = Color.Purple;
-            button2.Cursor = Cursors.Hand;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button2.ForeColor = Color.White;
-            button2.Location = new Point(571, 101);
-            button2.Name = "button2";
-            button2.Size = new Size(147, 43);
-            button2.TabIndex = 3;
-            button2.Text = "Eliminar Tarea";
-            button2.UseVisualStyleBackColor = false;
+            BtnEliminarTarea.BackColor = Color.Purple;
+            BtnEliminarTarea.Cursor = Cursors.Hand;
+            BtnEliminarTarea.FlatAppearance.BorderSize = 0;
+            BtnEliminarTarea.FlatStyle = FlatStyle.Flat;
+            BtnEliminarTarea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnEliminarTarea.ForeColor = Color.White;
+            BtnEliminarTarea.Location = new Point(571, 101);
+            BtnEliminarTarea.Name = "BtnEliminarTarea";
+            BtnEliminarTarea.Size = new Size(147, 43);
+            BtnEliminarTarea.TabIndex = 3;
+            BtnEliminarTarea.Text = "Eliminar Tarea";
+            BtnEliminarTarea.UseVisualStyleBackColor = false;
             // 
             // dashboardProfesores
             // 
@@ -232,8 +232,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(948, 577);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(BtnEliminarTarea);
+            Controls.Add(BtnEditarTarea);
             Controls.Add(BtnCrearTarea);
             Controls.Add(dataGridView1);
             Controls.Add(panel3);
@@ -266,7 +266,7 @@
         private Label label3;
         private DataGridView dataGridView1;
         private Button BtnCrearTarea;
-        private Button button1;
-        private Button button2;
+        private Button BtnEditarTarea;
+        private Button BtnEliminarTarea;
     }
 }

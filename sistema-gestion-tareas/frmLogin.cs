@@ -67,9 +67,11 @@ namespace sistema_gestion_tareas
                 password = "";
                 txtusername.Focus();
             }
-            if (true) // usuario registrado
+            if (true) // usuario registrado => ajustar conficional
             {
                 // llevar al dashboard dependiendo de su rol
+                
+                //PENDIENTE VALIDACION DE ROL
             }
 
         }

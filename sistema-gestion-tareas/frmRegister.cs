@@ -11,7 +11,7 @@ namespace sistema_gestion_tareas
 
 
         }
-        // Conectar Base de datos
+        
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
@@ -63,7 +63,7 @@ namespace sistema_gestion_tareas
             {
                 // Insertar Usuario Base de datos
                 MessageBox.Show("Tu cuenta ha sido existosamente creada", "Registro existoso", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                new dashboardProfesores().Show();
+                new frmLogin().Show();
                 this.Hide();
             }
             //BACKEND
