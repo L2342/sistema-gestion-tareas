@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(btnOrdenar));
             panel3 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
@@ -103,7 +104,7 @@
             BtnLogOut.FlatStyle = FlatStyle.Flat;
             BtnLogOut.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnLogOut.ForeColor = Color.SpringGreen;
-            BtnLogOut.Image = Properties.Resources.logout_16__1_;
+            BtnLogOut.Image = (Image)resources.GetObject("BtnLogOut.Image");
             BtnLogOut.Location = new Point(0, 496);
             BtnLogOut.Name = "BtnLogOut";
             BtnLogOut.Size = new Size(186, 42);
@@ -121,7 +122,7 @@
             BtnDashboard.FlatStyle = FlatStyle.Flat;
             BtnDashboard.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnDashboard.ForeColor = Color.SpringGreen;
-            BtnDashboard.Image = Properties.Resources.house_16__1_;
+            BtnDashboard.Image = (Image)resources.GetObject("BtnDashboard.Image");
             BtnDashboard.Location = new Point(0, 144);
             BtnDashboard.Name = "BtnDashboard";
             BtnDashboard.Size = new Size(186, 42);
@@ -165,7 +166,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Image = Properties.Resources.IconUsuario_1_; // D: <==3
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
             pictureBox1.Location = new Point(60, 22);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(63, 63);
