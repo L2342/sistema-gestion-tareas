@@ -38,7 +38,7 @@
             pictureBox1 = new PictureBox();
             panel3 = new Panel();
             label3 = new Label();
-            dataGridView1 = new DataGridView();
+            dgvTareasAsignadas = new DataGridView();
             BtnCrearTarea = new Button();
             BtnEditarTarea = new Button();
             BtnEliminarTarea = new Button();
@@ -46,7 +46,7 @@
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTareasAsignadas).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -173,13 +173,13 @@
             label3.TabIndex = 0;
             label3.Text = "Gestión Tareas Escolares - Profesores";
             // 
-            // dataGridView1
+            // dgvTareasAsignadas
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(221, 164);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(693, 368);
-            dataGridView1.TabIndex = 2;
+            dgvTareasAsignadas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTareasAsignadas.Location = new Point(221, 164);
+            dgvTareasAsignadas.Name = "dgvTareasAsignadas";
+            dgvTareasAsignadas.Size = new Size(693, 368);
+            dgvTareasAsignadas.TabIndex = 2;
             // 
             // BtnCrearTarea
             // 
@@ -235,7 +235,7 @@
             Controls.Add(BtnEliminarTarea);
             Controls.Add(BtnEditarTarea);
             Controls.Add(BtnCrearTarea);
-            Controls.Add(dataGridView1);
+            Controls.Add(dgvTareasAsignadas);
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -248,7 +248,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTareasAsignadas).EndInit();
             ResumeLayout(false);
         }
 
@@ -264,7 +264,7 @@
         private Panel PnlNav;
         private Panel panel3;
         private Label label3;
-        private DataGridView dataGridView1;
+        private DataGridView dgvTareasAsignadas;
         private Button BtnCrearTarea;
         private Button BtnEditarTarea;
         private Button BtnEliminarTarea;

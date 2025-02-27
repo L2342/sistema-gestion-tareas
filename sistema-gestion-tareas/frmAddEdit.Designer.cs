@@ -38,7 +38,7 @@
             label4 = new Label();
             dtpFechaEntrega = new DateTimePicker();
             label5 = new Label();
-            checkedListBox1 = new CheckedListBox();
+            chkListaEstudiantes = new CheckedListBox();
             btnGuardar = new Button();
             btnCancelar = new Button();
             SuspendLayout();
@@ -125,13 +125,13 @@
             label5.TabIndex = 1;
             label5.Text = "Grupos asignados";
             // 
-            // checkedListBox1
+            // chkListaEstudiantes
             // 
-            checkedListBox1.FormattingEnabled = true;
-            checkedListBox1.Location = new Point(165, 295);
-            checkedListBox1.Name = "checkedListBox1";
-            checkedListBox1.Size = new Size(250, 94);
-            checkedListBox1.TabIndex = 5;
+            chkListaEstudiantes.FormattingEnabled = true;
+            chkListaEstudiantes.Location = new Point(165, 295);
+            chkListaEstudiantes.Name = "chkListaEstudiantes";
+            chkListaEstudiantes.Size = new Size(250, 94);
+            chkListaEstudiantes.TabIndex = 5;
             // 
             // btnGuardar
             // 
@@ -146,6 +146,7 @@
             btnGuardar.TabIndex = 6;
             btnGuardar.Text = "Guardar";
             btnGuardar.UseVisualStyleBackColor = false;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // btnCancelar
             // 
@@ -169,7 +170,7 @@
             ClientSize = new Size(600, 500);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
-            Controls.Add(checkedListBox1);
+            Controls.Add(chkListaEstudiantes);
             Controls.Add(dtpFechaEntrega);
             Controls.Add(txtDescription);
             Controls.Add(txtTitulo);
@@ -199,7 +200,7 @@
         private Label label4;
         private DateTimePicker dtpFechaEntrega;
         private Label label5;
-        private CheckedListBox checkedListBox1;
+        private CheckedListBox chkListaEstudiantes;
         private Button btnGuardar;
         private Button btnCancelar;
     }
