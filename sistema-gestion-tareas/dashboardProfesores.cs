@@ -51,7 +51,22 @@ namespace sistema_gestion_tareas
         {
             frmAddEdit formulario = new frmAddEdit();
             formulario.ShowDialog();
-            cargarTareas();
+            cargarTareas(); // actualizar el datadrig view con la nueva tarea despues de cerrar el formulario
+        }
+
+        private void BtnEditarTarea_Click(object sender, EventArgs e)
+        {
+            if(dgvTareasAsignadas.SelectedRows.Count > 0)
+            {
+                int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value); //pendiente de que se llame id 
+                frmAddEdit formulario = new frmAddEdit(tareaID);
+                formulario.ShowDialog();
+                cargarTareas();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar una tarea para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

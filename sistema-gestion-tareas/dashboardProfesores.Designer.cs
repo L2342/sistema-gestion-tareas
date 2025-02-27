@@ -211,6 +211,7 @@
             BtnEditarTarea.TabIndex = 3;
             BtnEditarTarea.Text = "Editar Tarea";
             BtnEditarTarea.UseVisualStyleBackColor = false;
+            BtnEditarTarea.Click += BtnEditarTarea_Click;
             // 
             // BtnEliminarTarea
             // 

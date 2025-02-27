@@ -10,12 +10,25 @@ using System.Windows.Forms;
 
 namespace sistema_gestion_tareas
 {
+
     public partial class frmAddEdit : Form
     {
-        public frmAddEdit()
+        private int? tareaID; // Identificador de la tarea (null para crear, valor para editar)
+        public frmAddEdit(int? tareaID = null)
         {
             InitializeComponent();
+            this.tareaID = tareaID;
+            if (tareaID.HasValue)
+            {
+                CargarDatosTarea(tareaID.Value); // Cargar datos si estamos en modo edición
+            }
         }
+        private void CargarDatosTarea(int tareaID)
+        {
+            // AQUI SE IMPLEMENTA EL BACK PARA CARGAR LOS DATOS DE LA TAREA DE LA BASE DE DATOS
+            // PARA RELLENAR LOS CAMPOS DEL FORMULARIO
+        }
+
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
@@ -47,13 +60,26 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Debes seleccionar una asignatura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            try
+            {
+                // PARA EL BACK
+                //AQUI IMPLEMENTAR GUARDAR LA INFORMACION EN LA BASE DE DATOS
 
-            // PARA EL BACK
-            //AQUI IMPLEMENTAR GUARDAR LA INFORMACION EN LA BASE DE DATOS
-
-            MessageBox.Show("Tarea guardada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
-
+                if(tareaID.HasValue)
+                {
+                    // Modificar tarea existente
+                }
+                else
+                {
+                    // Crear nueva tarea
+                }
+                MessageBox.Show(tareaID.HasValue ? "Tarea actualizada correctamente." : "Tarea creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
