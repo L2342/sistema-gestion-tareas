@@ -38,6 +38,11 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("El título es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            if(string.IsNullOrWhiteSpace(txtDescription.Text))
+            {
+                MessageBox.Show("La descripción es obligatoria.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (dtpFechaEntrega.Value < DateTime.Now)
             {
                 MessageBox.Show("La fecha de entrega no puede ser pasada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

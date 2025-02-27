@@ -29,6 +29,10 @@ namespace sistema_gestion_tareas
             PnlNav.Top = BtnLogOut.Top;
             PnlNav.Left = BtnLogOut.Left;
             BtnLogOut.BackColor = Color.Thistle;
+            frmLogin login = new frmLogin();
+            login.Show();
+            this.Hide();
+
         }
 
         private void BtnDashboard_Leave(object sender, EventArgs e)
@@ -56,7 +60,7 @@ namespace sistema_gestion_tareas
 
         private void BtnEditarTarea_Click(object sender, EventArgs e)
         {
-            if(dgvTareasAsignadas.SelectedRows.Count > 0)
+            if (dgvTareasAsignadas.SelectedRows.Count > 0)
             {
                 int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value); //pendiente de que se llame id 
                 frmAddEdit formulario = new frmAddEdit(tareaID);
@@ -66,6 +70,20 @@ namespace sistema_gestion_tareas
             else
             {
                 MessageBox.Show("Debes seleccionar una tarea para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnEliminarTarea_Click(object sender, EventArgs e)
+        {
+            if (dgvTareasAsignadas.SelectedRows.Count > 0)
+            {
+                int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value); //pendiente de que se llame id 
+                // AQUI SE IMPLEMENTA EL BACK PARA ELIMINAR LA TAREA DE LA BASE DE DATOS
+                cargarTareas();
+            }
+            else
+            {
+                MessageBox.Show("Debes seleccionar una tarea para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

@@ -227,6 +227,7 @@
             BtnEliminarTarea.TabIndex = 3;
             BtnEliminarTarea.Text = "Eliminar Tarea";
             BtnEliminarTarea.UseVisualStyleBackColor = false;
+            BtnEliminarTarea.Click += BtnEliminarTarea_Click;
             // 
             // dashboardProfesores
             // 
