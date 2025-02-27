@@ -61,7 +61,7 @@ namespace sistema_gestion_tareas
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
-                        dashboardEstudiantes dashboardEstudiantes = new dashboardEstudiantes();
+                        btnOrdenar dashboardEstudiantes = new btnOrdenar();
                         dashboardEstudiantes.Show();
                         this.Hide();
                     }

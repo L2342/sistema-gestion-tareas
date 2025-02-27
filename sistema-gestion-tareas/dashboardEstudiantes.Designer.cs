@@ -1,6 +1,6 @@
 ﻿namespace sistema_gestion_tareas
 {
-    partial class dashboardEstudiantes
+    partial class btnOrdenar
     {
         /// <summary>
         /// Required designer variable.
@@ -43,6 +43,9 @@
             label5 = new Label();
             cmbEstados = new ComboBox();
             btnCambiarEstado = new Button();
+            label6 = new Label();
+            cmbCriterios = new ComboBox();
+            button1 = new Button();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -223,20 +226,57 @@
             btnCambiarEstado.Text = "Cambiar Estado";
             btnCambiarEstado.UseVisualStyleBackColor = false;
             // 
-            // dashboardEstudiantes
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.ForeColor = Color.SeaGreen;
+            label6.Location = new Point(574, 423);
+            label6.Name = "label6";
+            label6.Size = new Size(106, 21);
+            label6.TabIndex = 0;
+            label6.Text = "Ordenar Por:";
+            // 
+            // cmbCriterios
+            // 
+            cmbCriterios.FormattingEnabled = true;
+            cmbCriterios.Items.AddRange(new object[] { " ", "Fecha de entrega", "Asignatura", "Estado" });
+            cmbCriterios.Location = new Point(686, 425);
+            cmbCriterios.Name = "cmbCriterios";
+            cmbCriterios.Size = new Size(120, 23);
+            cmbCriterios.TabIndex = 5;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.MediumSeaGreen;
+            button1.Cursor = Cursors.Hand;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            button1.ForeColor = SystemColors.ButtonHighlight;
+            button1.Location = new Point(815, 423);
+            button1.Name = "button1";
+            button1.Size = new Size(90, 34);
+            button1.TabIndex = 6;
+            button1.Text = "Ordenar";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // btnOrdenar
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 538);
+            Controls.Add(button1);
             Controls.Add(btnCambiarEstado);
+            Controls.Add(cmbCriterios);
             Controls.Add(cmbEstados);
+            Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(dgvTareasAsignadas);
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "dashboardEstudiantes";
+            Name = "btnOrdenar";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "dashboardEstudiantes";
             panel3.ResumeLayout(false);
@@ -267,5 +307,8 @@
         private Label label5;
         private ComboBox cmbEstados;
         private Button btnCambiarEstado;
+        private Label label6;
+        private ComboBox cmbCriterios;
+        private Button button1;
     }
 }

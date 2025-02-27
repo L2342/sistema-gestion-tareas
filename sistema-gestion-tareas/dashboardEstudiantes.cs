@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace sistema_gestion_tareas
 {
-    public partial class dashboardEstudiantes : Form
+    public partial class btnOrdenar : Form
     {
-        public dashboardEstudiantes()
+        public btnOrdenar()
         {
             InitializeComponent();
         }
