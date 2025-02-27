@@ -55,7 +55,6 @@ namespace sistema_gestion_tareas
                     Debug.WriteLine("Login hecho");
                     // Guardar datos de sesión (puedes usar variables estáticas, propiedades de aplicación, etc.)
                     int idUsuario = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
-                    string email = datosUsuario.Rows[0]["email"].ToString();
                     string role = datosUsuario.Rows[0]["rol"].ToString();
 
                     // Llevar al dashboard dependiendo de su rol
