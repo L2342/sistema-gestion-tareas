@@ -61,11 +61,15 @@ namespace sistema_gestion_tareas
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
-                        // Redirigir al dashboard de estudiantes
+                        dashboardEstudiantes dashboardEstudiantes = new dashboardEstudiantes();
+                        dashboardEstudiantes.Show();
+                        this.Hide();
                     }
                     else if (role == "Profesor")
                     {
-                        // Redirigir al dashboard de profesores
+                        dashboardProfesores dashboardProfesores = new dashboardProfesores();
+                        dashboardProfesores.Show();
+                        this.Hide();
                     }
                 }
             }

@@ -40,6 +40,9 @@
             pictureBox1 = new PictureBox();
             dgvTareasAsignadas = new DataGridView();
             label4 = new Label();
+            label5 = new Label();
+            cmbEstados = new ComboBox();
+            btnCambiarEstado = new Button();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -170,7 +173,7 @@
             // dgvTareasAsignadas
             // 
             dgvTareasAsignadas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTareasAsignadas.Location = new Point(203, 144);
+            dgvTareasAsignadas.Location = new Point(203, 114);
             dgvTareasAsignadas.Name = "dgvTareasAsignadas";
             dgvTareasAsignadas.Size = new Size(702, 253);
             dgvTareasAsignadas.TabIndex = 4;
@@ -180,17 +183,54 @@
             label4.AutoSize = true;
             label4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.SeaGreen;
-            label4.Location = new Point(203, 110);
+            label4.Location = new Point(203, 81);
             label4.Name = "label4";
             label4.Size = new Size(88, 21);
             label4.TabIndex = 0;
             label4.Text = "Mis Tareas";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = Color.SeaGreen;
+            label5.Location = new Point(203, 380);
+            label5.Name = "label5";
+            label5.Size = new Size(173, 21);
+            label5.TabIndex = 0;
+            label5.Text = "Cambiar Estado Tarea";
+            // 
+            // cmbEstados
+            // 
+            cmbEstados.FormattingEnabled = true;
+            cmbEstados.Items.AddRange(new object[] { " ", "Pendiente", "En progreso", "Completada" });
+            cmbEstados.Location = new Point(393, 382);
+            cmbEstados.Name = "cmbEstados";
+            cmbEstados.Size = new Size(166, 23);
+            cmbEstados.TabIndex = 5;
+            // 
+            // btnCambiarEstado
+            // 
+            btnCambiarEstado.BackColor = Color.MediumSeaGreen;
+            btnCambiarEstado.Cursor = Cursors.Hand;
+            btnCambiarEstado.FlatStyle = FlatStyle.Flat;
+            btnCambiarEstado.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCambiarEstado.ForeColor = SystemColors.ButtonHighlight;
+            btnCambiarEstado.Location = new Point(574, 375);
+            btnCambiarEstado.Name = "btnCambiarEstado";
+            btnCambiarEstado.Size = new Size(144, 34);
+            btnCambiarEstado.TabIndex = 6;
+            btnCambiarEstado.Text = "Cambiar Estado";
+            btnCambiarEstado.UseVisualStyleBackColor = false;
             // 
             // dashboardEstudiantes
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 538);
+            Controls.Add(btnCambiarEstado);
+            Controls.Add(cmbEstados);
+            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(dgvTareasAsignadas);
             Controls.Add(panel3);
@@ -224,5 +264,8 @@
         private PictureBox pictureBox1;
         private DataGridView dgvTareasAsignadas;
         private Label label4;
+        private Label label5;
+        private ComboBox cmbEstados;
+        private Button btnCambiarEstado;
     }
 }
