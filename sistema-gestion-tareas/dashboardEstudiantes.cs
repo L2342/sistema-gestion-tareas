@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using sistema_gestion_tareas.EstrategiasOrdenamiento;
 
 namespace sistema_gestion_tareas
 {
@@ -44,6 +45,8 @@ namespace sistema_gestion_tareas
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // crear el contexto
+            OrdenamientoContexto contexto = new OrdenamientoContexto();
             string? criterio = cmbCriterios.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(criterio))
@@ -51,7 +54,25 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Selecciona un criterio válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            // implementar patron strategy para ordenar las tareas
+
+            // asignar la estrategia
+            switch (criterio)
+            {
+                case "Fecha de entrega":
+                    contexto.SetEstrategia(new OrdenarPorFecha());
+                    break;
+                case "Estado":
+                    contexto.SetEstrategia(new OrdenarPorEstado());
+                    break;
+                case "Asignatura":
+                    contexto.SetEstrategia(new OrdenarPorAsignaturas());
+                    break;
+                default:
+                    MessageBox.Show("Criterio no válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+            }
+            // ejecutar Ordenamiento
+            contexto.EjecutarOrdenamiento(dgvTareasAsignadas);
         }
 
         private void BtnLogOut_Click(object sender, EventArgs e)

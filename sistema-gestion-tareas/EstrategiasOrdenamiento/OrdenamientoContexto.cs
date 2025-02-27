@@ -16,9 +16,9 @@ namespace sistema_gestion_tareas.EstrategiasOrdenamiento
             _estrategia = estrategia;
         }
 
-        public void EjecutarEstrategia(DataGridView dgvTareasAsignadas)
+        public void EjecutarOrdenamiento(DataGridView dgvTareasAsignadas)
         {
-            _estrategia.Ordenar(dgvTareasAsignadas);
+            _estrategia?.Ordenar(dgvTareasAsignadas);
         }
     }
 }
