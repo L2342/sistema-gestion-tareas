@@ -1,6 +1,6 @@
 ﻿namespace sistema_gestion_tareas
 {
-    partial class btnOrdenar
+    partial class form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(btnOrdenar));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form));
             panel3 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
@@ -46,7 +46,7 @@
             btnCambiarEstado = new Button();
             label6 = new Label();
             cmbCriterios = new ComboBox();
-            button1 = new Button();
+            btnOrdenar = new Button();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -208,7 +208,7 @@
             // cmbEstados
             // 
             cmbEstados.FormattingEnabled = true;
-            cmbEstados.Items.AddRange(new object[] { " ", "Pendiente", "En progreso", "Completada" });
+            cmbEstados.Items.AddRange(new object[] { " Pendiente", "En progreso", "Completada" });
             cmbEstados.Location = new Point(393, 382);
             cmbEstados.Name = "cmbEstados";
             cmbEstados.Size = new Size(166, 23);
@@ -243,33 +243,33 @@
             // cmbCriterios
             // 
             cmbCriterios.FormattingEnabled = true;
-            cmbCriterios.Items.AddRange(new object[] { " ", "Fecha de entrega", "Asignatura", "Estado" });
+            cmbCriterios.Items.AddRange(new object[] { "Fecha de entrega", "Asignatura", "Estado" });
             cmbCriterios.Location = new Point(686, 425);
             cmbCriterios.Name = "cmbCriterios";
             cmbCriterios.Size = new Size(120, 23);
             cmbCriterios.TabIndex = 5;
             // 
-            // button1
-            // 
-            button1.BackColor = Color.MediumSeaGreen;
-            button1.Cursor = Cursors.Hand;
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(815, 423);
-            button1.Name = "button1";
-            button1.Size = new Size(90, 34);
-            button1.TabIndex = 6;
-            button1.Text = "Ordenar";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
-            // 
             // btnOrdenar
+            // 
+            btnOrdenar.BackColor = Color.MediumSeaGreen;
+            btnOrdenar.Cursor = Cursors.Hand;
+            btnOrdenar.FlatStyle = FlatStyle.Flat;
+            btnOrdenar.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnOrdenar.ForeColor = SystemColors.ButtonHighlight;
+            btnOrdenar.Location = new Point(815, 423);
+            btnOrdenar.Name = "btnOrdenar";
+            btnOrdenar.Size = new Size(90, 34);
+            btnOrdenar.TabIndex = 6;
+            btnOrdenar.Text = "Ordenar";
+            btnOrdenar.UseVisualStyleBackColor = false;
+            btnOrdenar.Click += button1_Click;
+            // 
+            // form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 538);
-            Controls.Add(button1);
+            Controls.Add(btnOrdenar);
             Controls.Add(btnCambiarEstado);
             Controls.Add(cmbCriterios);
             Controls.Add(cmbEstados);
@@ -280,7 +280,7 @@
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "btnOrdenar";
+            Name = "form";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "dashboardEstudiantes";
             panel3.ResumeLayout(false);
@@ -313,6 +313,6 @@
         private Button btnCambiarEstado;
         private Label label6;
         private ComboBox cmbCriterios;
-        private Button button1;
+        private Button btnOrdenar;
     }
 }

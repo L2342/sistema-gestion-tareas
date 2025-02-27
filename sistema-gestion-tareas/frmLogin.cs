@@ -42,11 +42,10 @@ namespace sistema_gestion_tareas
             // Crear instancia de la clase UsuariosBD
             UsuariosBD usuariosBD = new UsuariosBD();
 
-            // Intentar validar el login para estudiantes y profesores
-            bool loginValidoEstudiante = usuariosBD.ValidarLogin(username, password, "Estudiante");
-            bool loginValidoProfesor = usuariosBD.ValidarLogin(username, password, "Profesor");
+            // Intentar validar el login
+            bool loginValido = usuariosBD.ValidarLogin(username, password, "Estudiante") || usuariosBD.ValidarLogin(username, password, "Profesor");
 
-            if (loginValidoEstudiante || loginValidoProfesor)
+            if (loginValido)
             {
                 // Obtener información del usuario
                 DataTable datosUsuario = usuariosBD.ObtenerUsuario(username);
@@ -61,14 +60,12 @@ namespace sistema_gestion_tareas
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
-                        // Redirigir al dashboard de estudiantes
-                        btnOrdenar dashboardEstudian = new btnOrdenar();
-                        dashboardEstudian.Show();
+                        form dashboardEstudiantes = new form();
+                        dashboardEstudiantes.Show();
                         this.Hide();
                     }
                     else if (role == "Profesor")
                     {
-                        // Redirigir al dashboard de profesores
                         dashboardProfesores dashboardProfesores = new dashboardProfesores();
                         dashboardProfesores.Show();
                         this.Hide();
@@ -83,6 +80,7 @@ namespace sistema_gestion_tareas
                 txtusername.Focus();
             }
         }
+
 
         private void button2_Click(object sender, EventArgs e)
         {

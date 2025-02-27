@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace sistema_gestion_tareas
 {
-    public partial class btnOrdenar : Form
+    public partial class form : Form
     {
 
-        public btnOrdenar()
+        public form()
         {
             InitializeComponent();
         }
@@ -25,26 +25,33 @@ namespace sistema_gestion_tareas
         }
         private void btnCambiarEstado_Click(object sender, EventArgs e)
         {
-            if (dgvTareasAsignadas.Rows.Count > 0)
+            if (dgvTareasAsignadas.Rows.Count == 0)
             {
-                string nuevoEstado = cmbEstados.SelectedItem.ToString();
-                int idTarea = Convert.ToInt32(dgvTareasAsignadas.CurrentRow.Cells[0].Value); // pendiente que sea la columna correcta para hacer la verificacion
-                                                                                             // ACTUALIZAR EL ESTADO DE LA TAREA EN LA BASE DE DATOS
-                MessageBox.Show("El estado de la tarea ha sido actualizado.");
-                CargarTareasEstudiante(); // Recargar datos; verificar si es necesario incluir atributo como IDESTUDIANTE
-
+                MessageBox.Show("Por favor, selecciona una tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
+            int tareaEstudianteID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["TareaEstudianteID"].Value); //pendiente de que sea la columna correcta
+            string? nuevoEstado = cmbEstados.SelectedItem?.ToString();
+            if (string.IsNullOrEmpty(nuevoEstado))
+            {
+                MessageBox.Show("Selecciona un estado válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            // ACTUALIZAR EL ESTADO DE LA TAREA EN LA BASE DE DATOS
+            MessageBox.Show("El estado de la tarea ha sido actualizado.");
+            CargarTareasEstudiante(); // Recargar datos; verificar si es necesario incluir atributo como IDESTUDIANTE
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string criterio = cmbCriterios.SelectedItem?.ToString();
+            string? criterio = cmbCriterios.SelectedItem?.ToString();
 
             if (string.IsNullOrEmpty(criterio))
             {
                 MessageBox.Show("Selecciona un criterio válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
+            // implementar patron strategy para ordenar las tareas
         }
 
         private void BtnLogOut_Click(object sender, EventArgs e)
