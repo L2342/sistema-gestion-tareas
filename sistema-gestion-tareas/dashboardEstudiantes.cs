@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace sistema_gestion_tareas
 {
-    public partial class form : Form
+    public partial class dashBoard_Profesores : Form
     {
 
-        public form()
+        public dashBoard_Profesores()
         {
             InitializeComponent();
         }
@@ -59,6 +59,11 @@ namespace sistema_gestion_tareas
             frmLogin login = new frmLogin();
             login.Show();
             this.Hide();
+        }
+
+        private void form_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

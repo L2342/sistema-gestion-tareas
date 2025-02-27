@@ -60,7 +60,7 @@ namespace sistema_gestion_tareas
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
-                        form dashboardEstudiantes = new form();
+                        dashBoard_Profesores dashboardEstudiantes = new dashBoard_Profesores();
                         dashboardEstudiantes.Show();
                         this.Hide();
                     }

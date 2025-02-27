@@ -1,6 +1,6 @@
 ﻿namespace sistema_gestion_tareas
 {
-    partial class form
+    partial class dashBoard_Profesores
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(form));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dashBoard_Profesores));
             panel3 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
@@ -264,7 +264,7 @@
             btnOrdenar.UseVisualStyleBackColor = false;
             btnOrdenar.Click += button1_Click;
             // 
-            // form
+            // dashBoard_Profesores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -280,9 +280,10 @@
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "form";
+            Name = "dashBoard_Profesores";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "dashboardEstudiantes";
+            Load += form_Load;
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
