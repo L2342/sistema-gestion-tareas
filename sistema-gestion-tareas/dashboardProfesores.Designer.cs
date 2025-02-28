@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            AcTarea = new Button();
             PnlNav = new Panel();
             BtnLogOut = new Button();
             BtnDashboard = new Button();
@@ -52,6 +53,7 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(AcTarea);
             panel1.Controls.Add(PnlNav);
             panel1.Controls.Add(BtnLogOut);
             panel1.Controls.Add(BtnDashboard);
@@ -62,6 +64,23 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(213, 769);
             panel1.TabIndex = 0;
+            // 
+            // AcTarea
+            // 
+            AcTarea.BackColor = Color.Purple;
+            AcTarea.Cursor = Cursors.Hand;
+            AcTarea.FlatAppearance.BorderSize = 0;
+            AcTarea.FlatStyle = FlatStyle.Flat;
+            AcTarea.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            AcTarea.ForeColor = Color.White;
+            AcTarea.Location = new Point(24, 379);
+            AcTarea.Margin = new Padding(3, 4, 3, 4);
+            AcTarea.Name = "AcTarea";
+            AcTarea.Size = new Size(168, 57);
+            AcTarea.TabIndex = 4;
+            AcTarea.Text = "Actualizar Tareas";
+            AcTarea.UseVisualStyleBackColor = false;
+            AcTarea.Click += AcTarea_Click;
             // 
             // PnlNav
             // 
@@ -284,5 +303,6 @@
         private Button BtnEditarTarea;
         private Button BtnEliminarTarea;
         private DataGridView dgvTareasAsignadas;
+        private Button AcTarea;
     }
 }

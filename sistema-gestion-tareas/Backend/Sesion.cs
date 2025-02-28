@@ -9,6 +9,7 @@ namespace sistema_gestion_tareas
     public static class Sesion
     {
         public static int ProfesorID { get; set; }
+        public static int EstudianteID { get; set; }
     }
 }
 

@@ -7,31 +7,154 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 using sistema_gestion_tareas.EstrategiasOrdenamiento;
 
 namespace sistema_gestion_tareas
 {
     public partial class dashBoard_Profesores : Form
     {
+        private int estudianteID;
 
         public dashBoard_Profesores()
         {
             InitializeComponent();
         }
 
-        private void CargarTareasEstudiante() // Verificar si es necesario incluir atributo como IDESTUDIANTE
+        public dashBoard_Profesores(int estudianteID)
         {
-            // AQUI SE IMPLEMENTA EL BACK PARA ACTUALIZAR EL DATAGRID VIEW CON LAS TAREASESTUDIANTE DE LA BASE DE DATOS
-
+            InitializeComponent();
+            this.estudianteID = estudianteID;
+            VerificarGrupoEstudiante();
+            CargarTareasEstudiante();
         }
+
+        private void VerificarGrupoEstudiante()
+        {
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string consulta = "SELECT grupo FROM estudiantes WHERE id = @estudianteID";
+                    MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                    cmd.Parameters.AddWithValue("@estudianteID", estudianteID);
+
+                    object resultado = cmd.ExecuteScalar();
+                    if (resultado != null && !string.IsNullOrEmpty(resultado.ToString()))
+                    {
+                        cmbGrupos.Text = resultado.ToString();
+                        cmbGrupos.Enabled = false;
+                        btnGuardarGrupo.Enabled = false;
+                    }
+                    else
+                    {
+                        CargarGrupos();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al verificar el grupo del estudiante: " + ex.Message);
+                }
+            }
+        }
+
+        private void CargarGrupos()
+        {
+            // Cargar los grupos disponibles en el ComboBox
+            cmbGrupos.Items.AddRange(new string[] { "Grupo A", "Grupo B", "Grupo C", "Grupo N" });
+        }
+
+        private void btnGuardarGrupo_Click(object sender, EventArgs e)
+        {
+            // Validar que el usuario haya seleccionado un grupo
+            if (cmbGrupos.SelectedItem == null)
+            {
+                MessageBox.Show("Por favor, selecciona un grupo antes de continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string grupoSeleccionado = cmbGrupos.SelectedItem.ToString();
+
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string consulta = "UPDATE estudiantes SET grupo = @grupo WHERE id = @estudianteID AND (grupo IS NULL OR grupo = '')";
+                    MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                    cmd.Parameters.AddWithValue("@grupo", grupoSeleccionado);
+                    cmd.Parameters.AddWithValue("@estudianteID", estudianteID);
+
+                    int filasAfectadas = cmd.ExecuteNonQuery();
+
+                    if (filasAfectadas > 0)
+                    {
+                        MessageBox.Show("Grupo asignado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cmbGrupos.Enabled = false;  // Bloquear cambios
+                        btnGuardarGrupo.Enabled = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo asignar el grupo. Puede que ya tengas un grupo asignado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al guardar el grupo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void CargarTareasEstudiante()
+        {
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string consulta = @"
+                        SELECT te.id AS TareaEstudianteID, t.titulo, t.descripcion, t.fecha_entrega, t.materia, te.estado
+                        FROM tarea_estudiante te
+                        JOIN tareas t ON te.tarea_id = t.id
+                        WHERE te.estudiante_id = @estudianteID";
+
+                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@estudianteID", estudianteID);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgvTareasDisponibles.DataSource = dt;  // Asignar el DataTable al DataGridView
+
+                            // Ocultar la columna TareaEstudianteID
+                            if (dgvTareasDisponibles.Columns["TareaEstudianteID"] != null)
+                            {
+                                dgvTareasDisponibles.Columns["TareaEstudianteID"].Visible = false;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar las tareas del estudiante: " + ex.Message);
+                }
+            }
+        }
+
         private void btnCambiarEstado_Click(object sender, EventArgs e)
         {
-            if (dgvTareasAsignadas.Rows.Count == 0)
+            if (dgvTareasDisponibles.Rows.Count == 0)
             {
                 MessageBox.Show("Por favor, selecciona una tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            int tareaEstudianteID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["TareaEstudianteID"].Value); //pendiente de que sea la columna correcta
+            int tareaEstudianteID = Convert.ToInt32(dgvTareasDisponibles.SelectedRows[0].Cells["TareaEstudianteID"].Value); //pendiente de que sea la columna correcta
             string? nuevoEstado = cmbEstados.SelectedItem?.ToString();
             if (string.IsNullOrEmpty(nuevoEstado))
             {
@@ -72,7 +195,7 @@ namespace sistema_gestion_tareas
                     return;
             }
             // ejecutar Ordenamiento
-            contexto.EjecutarOrdenamiento(dgvTareasAsignadas);
+            contexto.EjecutarOrdenamiento(dgvTareasDisponibles);
         }
 
         private void BtnLogOut_Click(object sender, EventArgs e)
@@ -86,5 +209,28 @@ namespace sistema_gestion_tareas
         {
 
         }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGuardarGrupo_Click_1(object sender, EventArgs e)
+        {
+            btnGuardarGrupo_Click(sender, e);
+        }
+
+        private void cmbGrupos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbEstados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+
+

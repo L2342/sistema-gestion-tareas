@@ -31,6 +31,8 @@
             panel3 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
+            btnGuardarGrupo = new Button();
+            cmbGrupos = new ComboBox();
             PnlNav = new Panel();
             BtnLogOut = new Button();
             BtnDashboard = new Button();
@@ -38,7 +40,7 @@
             label2 = new Label();
             label1 = new Label();
             pictureBox1 = new PictureBox();
-            dgvTareasAsignadas = new DataGridView();
+            dgvTareasDisponibles = new DataGridView();
             label4 = new Label();
             label5 = new Label();
             cmbEstados = new ComboBox();
@@ -50,7 +52,7 @@
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dgvTareasAsignadas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTareasDisponibles).BeginInit();
             SuspendLayout();
             // 
             // panel3
@@ -74,10 +76,13 @@
             label3.Size = new Size(583, 45);
             label3.TabIndex = 0;
             label3.Text = "Gestión Tareas Escolares - Estudiantes";
+            label3.Click += label3_Click;
             // 
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(btnGuardarGrupo);
+            panel1.Controls.Add(cmbGrupos);
             panel1.Controls.Add(PnlNav);
             panel1.Controls.Add(BtnLogOut);
             panel1.Controls.Add(BtnDashboard);
@@ -88,6 +93,33 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(213, 717);
             panel1.TabIndex = 2;
+            // 
+            // btnGuardarGrupo
+            // 
+            btnGuardarGrupo.BackColor = Color.MediumSeaGreen;
+            btnGuardarGrupo.Cursor = Cursors.Hand;
+            btnGuardarGrupo.FlatStyle = FlatStyle.Flat;
+            btnGuardarGrupo.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnGuardarGrupo.ForeColor = SystemColors.ButtonHighlight;
+            btnGuardarGrupo.Location = new Point(36, 288);
+            btnGuardarGrupo.Margin = new Padding(3, 4, 3, 4);
+            btnGuardarGrupo.Name = "btnGuardarGrupo";
+            btnGuardarGrupo.Size = new Size(165, 58);
+            btnGuardarGrupo.TabIndex = 7;
+            btnGuardarGrupo.Text = "Determinar Grupo";
+            btnGuardarGrupo.UseVisualStyleBackColor = false;
+            btnGuardarGrupo.Click += btnGuardarGrupo_Click_1;
+            // 
+            // cmbGrupos
+            // 
+            cmbGrupos.FormattingEnabled = true;
+            cmbGrupos.Items.AddRange(new object[] { "Grupo A", "Grupo B", "Grupo C", "Grupo N" });
+            cmbGrupos.Location = new Point(12, 365);
+            cmbGrupos.Margin = new Padding(3, 4, 3, 4);
+            cmbGrupos.Name = "cmbGrupos";
+            cmbGrupos.Size = new Size(189, 28);
+            cmbGrupos.TabIndex = 7;
+            cmbGrupos.SelectedIndexChanged += cmbGrupos_SelectedIndexChanged;
             // 
             // PnlNav
             // 
@@ -181,15 +213,15 @@
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
-            // dgvTareasAsignadas
+            // dgvTareasDisponibles
             // 
-            dgvTareasAsignadas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTareasAsignadas.Location = new Point(232, 152);
-            dgvTareasAsignadas.Margin = new Padding(3, 4, 3, 4);
-            dgvTareasAsignadas.Name = "dgvTareasAsignadas";
-            dgvTareasAsignadas.RowHeadersWidth = 51;
-            dgvTareasAsignadas.Size = new Size(802, 337);
-            dgvTareasAsignadas.TabIndex = 4;
+            dgvTareasDisponibles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTareasDisponibles.Location = new Point(232, 152);
+            dgvTareasDisponibles.Margin = new Padding(3, 4, 3, 4);
+            dgvTareasDisponibles.Name = "dgvTareasDisponibles";
+            dgvTareasDisponibles.RowHeadersWidth = 51;
+            dgvTareasDisponibles.Size = new Size(802, 337);
+            dgvTareasDisponibles.TabIndex = 4;
             // 
             // label4
             // 
@@ -222,6 +254,7 @@
             cmbEstados.Name = "cmbEstados";
             cmbEstados.Size = new Size(189, 28);
             cmbEstados.TabIndex = 5;
+            cmbEstados.SelectedIndexChanged += cmbEstados_SelectedIndexChanged;
             // 
             // btnCambiarEstado
             // 
@@ -288,7 +321,7 @@
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(dgvTareasAsignadas);
+            Controls.Add(dgvTareasDisponibles);
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -303,7 +336,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dgvTareasAsignadas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvTareasDisponibles).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -320,7 +353,7 @@
         private Label label2;
         private Label label1;
         private PictureBox pictureBox1;
-        private DataGridView dgvTareasAsignadas;
+        private DataGridView dgvTareasDisponibles;
         private Label label4;
         private Label label5;
         private ComboBox cmbEstados;
@@ -328,5 +361,7 @@
         private Label label6;
         private ComboBox cmbCriterios;
         private Button btnOrdenar;
+        private Button btnGuardarGrupo;
+        private ComboBox cmbGrupos;
     }
 }

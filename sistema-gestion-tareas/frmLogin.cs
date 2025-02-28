@@ -20,7 +20,7 @@ namespace sistema_gestion_tareas
             txtusername.Focus();
         }
 
-        public int ObtenerIdUsuario(string username, string password)
+        public int ObtenerIdUsuario(string username, string password, string role)
         {
             int idUsuario = -1;
             string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
@@ -29,7 +29,9 @@ namespace sistema_gestion_tareas
                 try
                 {
                     conexion.Open();
-                    string consulta = "SELECT id FROM profesores WHERE nombre = @username AND clave = @password";
+                    string consulta = role == "Profesor" ?
+                        "SELECT id FROM profesores WHERE nombre = @username AND clave = @password" :
+                        "SELECT id FROM estudiantes WHERE nombre = @username AND clave = @password";
                     MySqlCommand cmd = new MySqlCommand(consulta, conexion);
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", password);
@@ -85,13 +87,20 @@ namespace sistema_gestion_tareas
                     // Mostrar el valor de usuarioID para depuración
                     Debug.WriteLine($"usuarioID: {usuarioID}");
 
-                    // Guardar el ID del profesor en la sesión
-                    Sesion.ProfesorID = usuarioID;
+                    // Guardar el ID del usuario en la sesión
+                    if (role == "Estudiante")
+                    {
+                        Sesion.EstudianteID = usuarioID;
+                    }
+                    else if (role == "Profesor")
+                    {
+                        Sesion.ProfesorID = usuarioID;
+                    }
 
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
-                        dashBoard_Profesores dashboardEstudiantes = new dashBoard_Profesores();
+                        dashBoard_Profesores dashboardEstudiantes = new dashBoard_Profesores(usuarioID);
                         dashboardEstudiantes.Show();
                         this.Hide();
                     }
@@ -153,6 +162,4 @@ namespace sistema_gestion_tareas
         }
     }
 }
-
-
 

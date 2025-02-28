@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace sistema_gestion_tareas
 {
@@ -62,6 +63,7 @@ namespace sistema_gestion_tareas
                 using (MySqlConnection conexion = new MySqlConnection("server=localhost;database=usuarios;user=root;password="))
                 {
                     conexion.Open();
+                    Debug.WriteLine("Conexión exitosa a la base de datos.");
                     string consulta = "SELECT id, titulo, descripcion, fecha_entrega, grupo_asignado, materia FROM tareas WHERE profesor_id = @ProfesorID";
 
                     using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
@@ -73,6 +75,12 @@ namespace sistema_gestion_tareas
                             DataTable dt = new DataTable();
                             adapter.Fill(dt);
                             dgvTareasAsignadas.DataSource = dt;  // Asignar el DataTable al DataGridView
+
+                            // Ocultar la columna id
+                            if (dgvTareasAsignadas.Columns["id"] != null)
+                            {
+                                dgvTareasAsignadas.Columns["id"].Visible = false;
+                            }
                         }
                     }
                 }
@@ -103,8 +111,11 @@ namespace sistema_gestion_tareas
             frmAddEdit frm = new frmAddEdit(Sesion.ProfesorID, tareaID);
             frm.ShowDialog(); // Abrir en modo edición
             CargarTareas(); // Refrescar la lista después de editar
-        }
 
+            // Actualizar la tabla tarea_estudiante
+            TareaEstudianteManager tareaEstudianteManager = new TareaEstudianteManager();
+            tareaEstudianteManager.ActualizarTareaEstudiante(Sesion.ProfesorID);
+        }
 
         private void BtnEliminarTarea_Click(object sender, EventArgs e)
         {
@@ -128,6 +139,14 @@ namespace sistema_gestion_tareas
                                 comando.Parameters.AddWithValue("@tareaID", tareaID);
                                 comando.ExecuteNonQuery();
                             }
+
+                            // Eliminar las entradas correspondientes en la tabla tarea_estudiante
+                            consulta = "DELETE FROM tarea_estudiante WHERE tarea_id = @tareaID";
+                            using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                            {
+                                comando.Parameters.AddWithValue("@tareaID", tareaID);
+                                comando.ExecuteNonQuery();
+                            }
                         }
                         MessageBox.Show("Tarea eliminada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         CargarTareas(); // Actualizar el DataGridView después de eliminar la tarea
@@ -143,5 +162,27 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Debes seleccionar una tarea para eliminar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void AcTarea_Click(object sender, EventArgs e)
+        {
+            if (dgvTareasAsignadas.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selecciona una tarea para asignar.");
+                return;
+            }
+
+            int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value);
+            string grupoTarea = dgvTareasAsignadas.SelectedRows[0].Cells["grupo_asignado"].Value?.ToString() ?? string.Empty;
+            string estado = "Pendiente"; // Estado inicial de la tarea
+            DateTime fecha = Convert.ToDateTime(dgvTareasAsignadas.SelectedRows[0].Cells["fecha_entrega"].Value);
+            string materia = dgvTareasAsignadas.SelectedRows[0].Cells["materia"].Value?.ToString() ?? string.Empty;
+
+            Debug.WriteLine($"AcTarea_Click - tareaID: {tareaID}, grupoTarea: {grupoTarea}, estado: {estado}, fecha: {fecha}, materia: {materia}");
+
+            // Consolidar la lógica en un solo método
+            TareaEstudianteManager tareaEstudianteManager = new TareaEstudianteManager();
+            tareaEstudianteManager.AsignarTareaAEstudiante(tareaID, grupoTarea, estado, fecha, materia);
+        }
     }
 }
+
