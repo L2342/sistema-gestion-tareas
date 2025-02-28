@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace sistema_gestion_tareas
-{   
-
+{
     public partial class frmLogin : Form
     {
         public frmLogin()
@@ -20,12 +20,41 @@ namespace sistema_gestion_tareas
             txtusername.Focus();
         }
 
-
-        // pendiente conexion  base de datos
-
         private void label1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        public int ObtenerIdUsuario(string username, string password)
+        {
+            int idUsuario = -1;
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string consulta = "SELECT id FROM profesores WHERE nombre = @username AND clave = @password";
+                    MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                    cmd.Parameters.AddWithValue("@username", username);
+                    cmd.Parameters.AddWithValue("@password", password);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        idUsuario = reader.GetInt32("id");
+                    }
+                    else
+                    {
+                        Debug.WriteLine("No se encontró el usuario con las credenciales proporcionadas.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al obtener el ID del usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            return idUsuario;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -57,6 +86,9 @@ namespace sistema_gestion_tareas
                     int idUsuario = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
                     string role = datosUsuario.Rows[0]["rol"].ToString();
 
+                    // Mostrar el valor de idUsuario para depuración
+                    Debug.WriteLine($"idUsuario: {idUsuario}");
+
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
                     {
@@ -69,6 +101,10 @@ namespace sistema_gestion_tareas
                         dashboardProfesores dashboardProfesores = new dashboardProfesores();
                         dashboardProfesores.Show();
                         this.Hide();
+
+                        // Redirigir al dashboard de profesores
+                        frmAddEdit addEditForm = new frmAddEdit(idUsuario);
+                        addEditForm.Show();
                     }
                 }
             }
@@ -80,7 +116,6 @@ namespace sistema_gestion_tareas
                 txtusername.Focus();
             }
         }
-
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -112,10 +147,17 @@ namespace sistema_gestion_tareas
 
         }
 
-        
         private void btnLogin_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtusername_TextChanged(object sender, EventArgs e)
         {
 
         }
     }
 }
+
+
+

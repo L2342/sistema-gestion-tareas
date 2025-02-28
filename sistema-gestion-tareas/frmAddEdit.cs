@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Diagnostics;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -8,56 +8,28 @@ namespace sistema_gestion_tareas
 {
     public partial class frmAddEdit : Form
     {
-        private int? tareaID; // Identificador de la tarea (null para crear, valor para editar)
+        private int profesorID;
+        private int? tareaID;
         private ConexionDB conexionDB;
 
-        public frmAddEdit(int? tareaID = null)
+        public frmAddEdit()
         {
             InitializeComponent();
-            this.tareaID = tareaID;
-            conexionDB = new ConexionDB();
-            if (tareaID.HasValue)
-            {
-                CargarDatosTarea(tareaID.Value); // Cargar datos si estamos en modo edición
-            }
         }
 
-        private void CargarDatosTarea(int tareaID)
+        public frmAddEdit(int profesorID)
         {
-            MySqlConnection conexion = null;
-            try
-            {
-                conexion = conexionDB.Conectar();
-                string consulta = "SELECT titulo, descripcion, fecha_entrega, grupo_asignado, materia FROM tareas WHERE id = @tareaID";
-                MySqlCommand cmd = new MySqlCommand(consulta, conexion);
-                cmd.Parameters.AddWithValue("@tareaID", tareaID);
+            InitializeComponent();
+            this.profesorID = profesorID;
+            conexionDB = new ConexionDB();
 
-                MySqlDataReader reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    txtTitulo.Text = reader["titulo"].ToString();
-                    txtDescription.Text = reader["descripcion"].ToString();
-                    dtpFechaEntrega.Value = Convert.ToDateTime(reader["fecha_entrega"]);
-                    // Asignar otros campos según sea necesario
-                }
-                reader.Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al cargar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conexion != null && conexion.State == ConnectionState.Open)
-                {
-                    conexion.Close();
-                }
-            }
+            // Mostrar el valor de profesorID para depuración
+            Debug.WriteLine("Usuario ID recibido: " + profesorID);
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            string? asignatura = cbxAsignaturas.SelectedItem?.ToString();
+            // Validar que todos los campos estén llenos
             if (string.IsNullOrWhiteSpace(txtTitulo.Text))
             {
                 MessageBox.Show("El título es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -73,64 +45,48 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("La fecha de entrega no puede ser pasada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            // Obtener lista de estudiantes seleccionados
-            List<string> estudiantesAsignados = new List<string>();
-            foreach (var item in chkListaEstudiantes.CheckedItems)
-            {
-                estudiantesAsignados.Add(item.ToString());
-            }
-            if (estudiantesAsignados.Count == 0)
-            {
-                MessageBox.Show("Debes asignar al menos un grupo de estudiantes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(asignatura))
+            if (cbxAsignaturas.SelectedItem == null)
             {
                 MessageBox.Show("Debes seleccionar una asignatura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
-            MySqlConnection conexion = null;
-            try
+            if (comboBox1.SelectedItem == null)
             {
-                conexion = conexionDB.Conectar();
-                string consulta;
-                if (tareaID.HasValue)
-                {
-                    // Modificar tarea existente
-                    consulta = "UPDATE tareas SET titulo = @titulo, descripcion = @descripcion, fecha_entrega = @fechaEntrega, grupo_asignado = @grupoAsignado, materia = @materia WHERE id = @tareaID";
-                }
-                else
-                {
-                    // Crear nueva tarea
-                    consulta = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, grupo_asignado, materia) VALUES (@titulo, @descripcion, @fechaEntrega, @grupoAsignado, @materia)";
-                }
-
-                MySqlCommand cmd = new MySqlCommand(consulta, conexion);
-                cmd.Parameters.AddWithValue("@titulo", txtTitulo.Text);
-                cmd.Parameters.AddWithValue("@descripcion", txtDescription.Text);
-                cmd.Parameters.AddWithValue("@fechaEntrega", dtpFechaEntrega.Value);
-                cmd.Parameters.AddWithValue("@grupoAsignado", string.Join(",", estudiantesAsignados));
-                cmd.Parameters.AddWithValue("@materia", asignatura);
-                if (tareaID.HasValue)
-                {
-                    cmd.Parameters.AddWithValue("@tareaID", tareaID.Value);
-                }
-
-                cmd.ExecuteNonQuery();
-                MessageBox.Show(tareaID.HasValue ? "Tarea actualizada correctamente." : "Tarea creada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.Close();
+                MessageBox.Show("Debes asignar al menos un grupo de estudiantes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            catch (Exception ex)
+
+            // Mostrar el valor de profesorID para depuración
+            Debug.WriteLine($"profesorID: {profesorID}");
+
+            // Conectar a la base de datos y guardar la información
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
-                MessageBox.Show($"Error al guardar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            finally
-            {
-                if (conexion != null && conexion.State == ConnectionState.Open)
+                try
                 {
-                    conexion.Close();
+                    conexion.Open();
+                    string consulta = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, grupo_asignado, profesor_id, materia) " +
+                                      "VALUES (@titulo, @descripcion, @fechaEntrega, @grupoAsignado, @profesorID, @materia)";
+
+                    MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                    cmd.Parameters.AddWithValue("@titulo", txtTitulo.Text);
+                    cmd.Parameters.AddWithValue("@descripcion", txtDescription.Text);
+                    cmd.Parameters.AddWithValue("@fechaEntrega", dtpFechaEntrega.Value);
+                    cmd.Parameters.AddWithValue("@grupoAsignado", comboBox1.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@profesorID", profesorID);
+                    cmd.Parameters.AddWithValue("@materia", cbxAsignaturas.SelectedItem.ToString());
+
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Datos guardados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (MySqlException ex) when (ex.Number == 1452)
+                {
+                    MessageBox.Show("El ID del profesor no existe en la tabla de profesores.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al guardar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -150,6 +106,11 @@ namespace sistema_gestion_tareas
 
         }
 
+        private void txtTitulo_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtDescription_TextChanged(object sender, EventArgs e)
         {
 
@@ -159,5 +120,19 @@ namespace sistema_gestion_tareas
         {
 
         }
+
+        private void chkListaEstudiantes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+
+
+
+
