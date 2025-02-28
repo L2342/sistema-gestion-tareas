@@ -11,7 +11,7 @@ namespace sistema_gestion_tareas.EstrategiasOrdenamiento
     {
         public void Ordenar(DataGridView dgvTareasAsignadas)
         {
-            dgvTareasAsignadas.Sort(dgvTareasAsignadas.Columns["Asignatura"], System.ComponentModel.ListSortDirection.Ascending);
+            dgvTareasAsignadas.Sort(dgvTareasAsignadas.Columns["materia"], System.ComponentModel.ListSortDirection.Ascending);
         }
     }
 }

@@ -61,19 +61,18 @@
             panel3.Controls.Add(label3);
             panel3.Dock = DockStyle.Top;
             panel3.ForeColor = Color.White;
-            panel3.Location = new Point(213, 0);
-            panel3.Margin = new Padding(3, 4, 3, 4);
+            panel3.Location = new Point(186, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(852, 89);
+            panel3.Size = new Size(746, 67);
             panel3.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Nirmala UI", 18.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(19, 12);
+            label3.Location = new Point(17, 9);
             label3.Name = "label3";
-            label3.Size = new Size(583, 45);
+            label3.Size = new Size(456, 35);
             label3.TabIndex = 0;
             label3.Text = "Gestión Tareas Escolares - Estudiantes";
             label3.Click += label3_Click;
@@ -89,9 +88,8 @@
             panel1.Controls.Add(panel2);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(213, 717);
+            panel1.Size = new Size(186, 538);
             panel1.TabIndex = 2;
             // 
             // btnGuardarGrupo
@@ -101,10 +99,9 @@
             btnGuardarGrupo.FlatStyle = FlatStyle.Flat;
             btnGuardarGrupo.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGuardarGrupo.ForeColor = SystemColors.ButtonHighlight;
-            btnGuardarGrupo.Location = new Point(36, 288);
-            btnGuardarGrupo.Margin = new Padding(3, 4, 3, 4);
+            btnGuardarGrupo.Location = new Point(32, 216);
             btnGuardarGrupo.Name = "btnGuardarGrupo";
-            btnGuardarGrupo.Size = new Size(165, 58);
+            btnGuardarGrupo.Size = new Size(144, 44);
             btnGuardarGrupo.TabIndex = 7;
             btnGuardarGrupo.Text = "Determinar Grupo";
             btnGuardarGrupo.UseVisualStyleBackColor = false;
@@ -113,21 +110,18 @@
             // cmbGrupos
             // 
             cmbGrupos.FormattingEnabled = true;
-            cmbGrupos.Items.AddRange(new object[] { "Grupo A", "Grupo B", "Grupo C", "Grupo N" });
-            cmbGrupos.Location = new Point(12, 365);
-            cmbGrupos.Margin = new Padding(3, 4, 3, 4);
+            cmbGrupos.Location = new Point(10, 274);
             cmbGrupos.Name = "cmbGrupos";
-            cmbGrupos.Size = new Size(189, 28);
+            cmbGrupos.Size = new Size(166, 23);
             cmbGrupos.TabIndex = 7;
             cmbGrupos.SelectedIndexChanged += cmbGrupos_SelectedIndexChanged;
             // 
             // PnlNav
             // 
             PnlNav.BackColor = Color.MediumSeaGreen;
-            PnlNav.Location = new Point(0, 192);
-            PnlNav.Margin = new Padding(3, 4, 3, 4);
+            PnlNav.Location = new Point(0, 144);
             PnlNav.Name = "PnlNav";
-            PnlNav.Size = new Size(9, 56);
+            PnlNav.Size = new Size(8, 42);
             PnlNav.TabIndex = 2;
             // 
             // BtnLogOut
@@ -139,10 +133,9 @@
             BtnLogOut.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnLogOut.ForeColor = Color.SpringGreen;
             BtnLogOut.Image = (Image)resources.GetObject("BtnLogOut.Image");
-            BtnLogOut.Location = new Point(0, 661);
-            BtnLogOut.Margin = new Padding(3, 4, 3, 4);
+            BtnLogOut.Location = new Point(0, 496);
             BtnLogOut.Name = "BtnLogOut";
-            BtnLogOut.Size = new Size(213, 56);
+            BtnLogOut.Size = new Size(186, 42);
             BtnLogOut.TabIndex = 1;
             BtnLogOut.Text = "Cerrar Sesión";
             BtnLogOut.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -159,10 +152,9 @@
             BtnDashboard.Font = new Font("Nirmala UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BtnDashboard.ForeColor = Color.SpringGreen;
             BtnDashboard.Image = (Image)resources.GetObject("BtnDashboard.Image");
-            BtnDashboard.Location = new Point(0, 192);
-            BtnDashboard.Margin = new Padding(3, 4, 3, 4);
+            BtnDashboard.Location = new Point(0, 144);
             BtnDashboard.Name = "BtnDashboard";
-            BtnDashboard.Size = new Size(213, 56);
+            BtnDashboard.Size = new Size(186, 42);
             BtnDashboard.TabIndex = 1;
             BtnDashboard.Text = "DashBoard";
             BtnDashboard.TextImageRelation = TextImageRelation.TextBeforeImage;
@@ -175,9 +167,8 @@
             panel2.Controls.Add(pictureBox1);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
-            panel2.Margin = new Padding(3, 4, 3, 4);
             panel2.Name = "panel2";
-            panel2.Size = new Size(213, 192);
+            panel2.Size = new Size(186, 144);
             panel2.TabIndex = 0;
             // 
             // label2
@@ -185,9 +176,9 @@
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft Sans Serif", 6.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.FromArgb(158, 161, 178);
-            label2.Location = new Point(39, 152);
+            label2.Location = new Point(34, 114);
             label2.Name = "label2";
-            label2.Size = new Size(133, 15);
+            label2.Size = new Size(104, 12);
             label2.TabIndex = 2;
             label2.Text = "Perfil de Estudiante";
             // 
@@ -196,19 +187,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.MediumSpringGreen;
-            label1.Location = new Point(39, 131);
+            label1.Location = new Point(34, 98);
             label1.Name = "label1";
-            label1.Size = new Size(143, 20);
+            label1.Size = new Size(117, 16);
             label1.TabIndex = 1;
             label1.Text = "Hola Estudiante";
             // 
             // pictureBox1
             // 
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(69, 29);
-            pictureBox1.Margin = new Padding(3, 4, 3, 4);
+            pictureBox1.Location = new Point(60, 22);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(72, 84);
+            pictureBox1.Size = new Size(63, 63);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
@@ -216,11 +206,10 @@
             // dgvTareasDisponibles
             // 
             dgvTareasDisponibles.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvTareasDisponibles.Location = new Point(232, 152);
-            dgvTareasDisponibles.Margin = new Padding(3, 4, 3, 4);
+            dgvTareasDisponibles.Location = new Point(203, 114);
             dgvTareasDisponibles.Name = "dgvTareasDisponibles";
             dgvTareasDisponibles.RowHeadersWidth = 51;
-            dgvTareasDisponibles.Size = new Size(802, 337);
+            dgvTareasDisponibles.Size = new Size(702, 253);
             dgvTareasDisponibles.TabIndex = 4;
             // 
             // label4
@@ -228,9 +217,9 @@
             label4.AutoSize = true;
             label4.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.ForeColor = Color.SeaGreen;
-            label4.Location = new Point(232, 108);
+            label4.Location = new Point(203, 81);
             label4.Name = "label4";
-            label4.Size = new Size(112, 28);
+            label4.Size = new Size(88, 21);
             label4.TabIndex = 0;
             label4.Text = "Mis Tareas";
             // 
@@ -239,20 +228,19 @@
             label5.AutoSize = true;
             label5.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label5.ForeColor = Color.SeaGreen;
-            label5.Location = new Point(232, 507);
+            label5.Location = new Point(203, 380);
             label5.Name = "label5";
-            label5.Size = new Size(216, 28);
+            label5.Size = new Size(173, 21);
             label5.TabIndex = 0;
             label5.Text = "Cambiar Estado Tarea";
             // 
             // cmbEstados
             // 
             cmbEstados.FormattingEnabled = true;
-            cmbEstados.Items.AddRange(new object[] { " Pendiente", "En progreso", "Completada" });
-            cmbEstados.Location = new Point(449, 509);
-            cmbEstados.Margin = new Padding(3, 4, 3, 4);
+            cmbEstados.Items.AddRange(new object[] { "Pendiente", "En progreso", "Completado" });
+            cmbEstados.Location = new Point(393, 382);
             cmbEstados.Name = "cmbEstados";
-            cmbEstados.Size = new Size(189, 28);
+            cmbEstados.Size = new Size(166, 23);
             cmbEstados.TabIndex = 5;
             cmbEstados.SelectedIndexChanged += cmbEstados_SelectedIndexChanged;
             // 
@@ -263,10 +251,9 @@
             btnCambiarEstado.FlatStyle = FlatStyle.Flat;
             btnCambiarEstado.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCambiarEstado.ForeColor = SystemColors.ButtonHighlight;
-            btnCambiarEstado.Location = new Point(656, 500);
-            btnCambiarEstado.Margin = new Padding(3, 4, 3, 4);
+            btnCambiarEstado.Location = new Point(574, 375);
             btnCambiarEstado.Name = "btnCambiarEstado";
-            btnCambiarEstado.Size = new Size(165, 45);
+            btnCambiarEstado.Size = new Size(144, 34);
             btnCambiarEstado.TabIndex = 6;
             btnCambiarEstado.Text = "Cambiar Estado";
             btnCambiarEstado.UseVisualStyleBackColor = false;
@@ -277,9 +264,9 @@
             label6.AutoSize = true;
             label6.Font = new Font("Nirmala UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label6.ForeColor = Color.SeaGreen;
-            label6.Location = new Point(656, 564);
+            label6.Location = new Point(574, 423);
             label6.Name = "label6";
-            label6.Size = new Size(132, 28);
+            label6.Size = new Size(106, 21);
             label6.TabIndex = 0;
             label6.Text = "Ordenar Por:";
             // 
@@ -287,10 +274,9 @@
             // 
             cmbCriterios.FormattingEnabled = true;
             cmbCriterios.Items.AddRange(new object[] { "Fecha de entrega", "Asignatura", "Estado" });
-            cmbCriterios.Location = new Point(784, 567);
-            cmbCriterios.Margin = new Padding(3, 4, 3, 4);
+            cmbCriterios.Location = new Point(686, 425);
             cmbCriterios.Name = "cmbCriterios";
-            cmbCriterios.Size = new Size(137, 28);
+            cmbCriterios.Size = new Size(120, 23);
             cmbCriterios.TabIndex = 5;
             // 
             // btnOrdenar
@@ -300,10 +286,9 @@
             btnOrdenar.FlatStyle = FlatStyle.Flat;
             btnOrdenar.Font = new Font("MS UI Gothic", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnOrdenar.ForeColor = SystemColors.ButtonHighlight;
-            btnOrdenar.Location = new Point(931, 564);
-            btnOrdenar.Margin = new Padding(3, 4, 3, 4);
+            btnOrdenar.Location = new Point(815, 423);
             btnOrdenar.Name = "btnOrdenar";
-            btnOrdenar.Size = new Size(103, 45);
+            btnOrdenar.Size = new Size(90, 34);
             btnOrdenar.TabIndex = 6;
             btnOrdenar.Text = "Ordenar";
             btnOrdenar.UseVisualStyleBackColor = false;
@@ -311,9 +296,9 @@
             // 
             // dashBoard_Profesores
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1065, 717);
+            ClientSize = new Size(932, 538);
             Controls.Add(btnOrdenar);
             Controls.Add(btnCambiarEstado);
             Controls.Add(cmbCriterios);
@@ -325,7 +310,6 @@
             Controls.Add(panel3);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(3, 4, 3, 4);
             Name = "dashBoard_Profesores";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "dashboardEstudiantes";

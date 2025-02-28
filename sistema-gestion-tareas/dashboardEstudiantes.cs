@@ -75,7 +75,7 @@ namespace sistema_gestion_tareas
                 return;
             }
 
-            string grupoSeleccionado = cmbGrupos.SelectedItem.ToString();
+            string? grupoSeleccionado = cmbGrupos.SelectedItem.ToString();
 
             string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
@@ -95,6 +95,7 @@ namespace sistema_gestion_tareas
                         MessageBox.Show("Grupo asignado correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         cmbGrupos.Enabled = false;  // Bloquear cambios
                         btnGuardarGrupo.Enabled = false;
+                        CargarTareasEstudiante(); // Recargar las tareas del estudiante
                     }
                     else
                     {
@@ -149,21 +150,70 @@ namespace sistema_gestion_tareas
 
         private void btnCambiarEstado_Click(object sender, EventArgs e)
         {
-            if (dgvTareasDisponibles.Rows.Count == 0)
+            if (dgvTareasDisponibles.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Por favor, selecciona una tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Por favor, selecciona una fila completa válida antes de cambiar el estado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            int tareaEstudianteID = Convert.ToInt32(dgvTareasDisponibles.SelectedRows[0].Cells["TareaEstudianteID"].Value); //pendiente de que sea la columna correcta
-            string? nuevoEstado = cmbEstados.SelectedItem?.ToString();
-            if (string.IsNullOrEmpty(nuevoEstado))
+
+            try
             {
-                MessageBox.Show("Selecciona un estado válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                // Obtener la fila seleccionada
+                DataGridViewRow filaSeleccionada = dgvTareasDisponibles.SelectedRows[0];
+
+                // Validar que la celda requerida no sea nula
+                if (filaSeleccionada.Cells["TareaEstudianteID"].Value == null)
+                {
+                    MessageBox.Show("Por favor, selecciona una fila válida con datos completos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                int tareaEstudianteID = Convert.ToInt32(filaSeleccionada.Cells["TareaEstudianteID"].Value);
+                string? nuevoEstado = cmbEstados.SelectedItem?.ToString();
+                string? estadoActual = filaSeleccionada.Cells["estado"].Value?.ToString();
+                if (string.IsNullOrEmpty(nuevoEstado))
+                {
+                    MessageBox.Show("Selecciona un estado válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                if (estadoActual == nuevoEstado)
+                {
+                    MessageBox.Show($"La tarea ya tiene el estado '{nuevoEstado}'.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                // Actualizar el estado en la base de datos
+                string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+                using (MySqlConnection conexion = new MySqlConnection(connectionString))
+                {
+                    conexion.Open();
+                    string consulta = @"
+                    UPDATE tarea_estudiante
+                    SET estado = @nuevoEstado
+                    WHERE id = @tareaEstudianteID";
+
+                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
+                    {
+                        cmd.Parameters.AddWithValue("@nuevoEstado", nuevoEstado);
+                        cmd.Parameters.AddWithValue("@tareaEstudianteID", tareaEstudianteID);
+
+                        int filasAfectadas = cmd.ExecuteNonQuery();
+
+                        if (filasAfectadas > 0)
+                        {
+                            MessageBox.Show($"El estado se ha actualizado a: {nuevoEstado}", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            CargarTareasEstudiante(); // Recargar las tareas
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se pudo actualizar el estado. Verifica los datos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
             }
-            // ACTUALIZAR EL ESTADO DE LA TAREA EN LA BASE DE DATOS
-            MessageBox.Show("El estado de la tarea ha sido actualizado.");
-            CargarTareasEstudiante(); // Recargar datos; verificar si es necesario incluir atributo como IDESTUDIANTE
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al actualizar el estado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
