@@ -125,7 +125,6 @@
             txtusername.Name = "txtusername";
             txtusername.Size = new Size(216, 28);
             txtusername.TabIndex = 12;
-            txtusername.TextChanged += txtusername_TextChanged;
             // 
             // label3
             // 
@@ -155,7 +154,6 @@
             label1.Size = new Size(217, 34);
             label1.TabIndex = 6;
             label1.Text = "Iniciar Sesión";
-            label1.Click += label1_Click;
             // 
             // frmLogin
             // 

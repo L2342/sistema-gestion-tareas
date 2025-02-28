@@ -1,4 +1,5 @@
 ﻿using System;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,7 @@ namespace sistema_gestion_tareas
         public dashboardProfesores()
         {
             InitializeComponent();
+            CargarTareas();
         }
 
         private void BtnDashboard_Click(object sender, EventArgs e)
@@ -29,10 +31,10 @@ namespace sistema_gestion_tareas
             PnlNav.Top = BtnLogOut.Top;
             PnlNav.Left = BtnLogOut.Left;
             BtnLogOut.BackColor = Color.Thistle;
+            Sesion.ProfesorID = 0; // Restablecer el ID del profesor al cerrar sesión
             frmLogin login = new frmLogin();
             login.Show();
             this.Hide();
-
         }
 
         private void BtnDashboard_Leave(object sender, EventArgs e)
@@ -45,41 +47,96 @@ namespace sistema_gestion_tareas
             BtnLogOut.BackColor = Color.White;
         }
 
-        private void cargarTareas()
+        public void CargarTareas()
         {
-            // AQUI SE IMPLEMENTA EL BACK PARA ACTUALIZAR EL DATAGRID VIEW CON LAS TAREAS DE LA BASE DE DATOS
-            //Añade un método en el formulario del Dashboard que cargue los datos filtrados por el ID del docente
+            int profesorID = Sesion.ProfesorID;
+
+            if (profesorID <= 0)
+            {
+                MessageBox.Show("Error: ID de profesor no válido.");
+                return;
+            }
+
+            try
+            {
+                using (MySqlConnection conexion = new MySqlConnection("server=localhost;database=usuarios;user=root;password="))
+                {
+                    conexion.Open();
+                    string consulta = "SELECT id, titulo, descripcion, fecha_entrega, grupo_asignado, materia FROM tareas WHERE profesor_id = @ProfesorID";
+
+                    using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                    {
+                        comando.Parameters.AddWithValue("@ProfesorID", profesorID);
+
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(comando))
+                        {
+                            DataTable dt = new DataTable();
+                            adapter.Fill(dt);
+                            dgvTareasAsignadas.DataSource = dt;  // Asignar el DataTable al DataGridView
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar las tareas: " + ex.Message);
+            }
         }
 
         private void BtnCrearTarea_Click(object sender, EventArgs e)
         {
-            frmAddEdit formulario = new frmAddEdit();
+            frmAddEdit formulario = new frmAddEdit(Sesion.ProfesorID);
             formulario.ShowDialog();
-            cargarTareas(); // actualizar el datadrig view con la nueva tarea despues de cerrar el formulario
+            CargarTareas(); // actualizar el DataGridView con la nueva tarea después de cerrar el formulario
         }
 
         private void BtnEditarTarea_Click(object sender, EventArgs e)
         {
-            if (dgvTareasAsignadas.SelectedRows.Count > 0)
+            if (dgvTareasAsignadas.SelectedRows.Count == 0)
             {
-                int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value); //pendiente de que se llame id 
-                frmAddEdit formulario = new frmAddEdit(tareaID);
-                formulario.ShowDialog();
-                cargarTareas();
+                MessageBox.Show("Selecciona una tarea para editar.");
+                return;
             }
-            else
-            {
-                MessageBox.Show("Debes seleccionar una tarea para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+
+            int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value);
+
+            frmAddEdit frm = new frmAddEdit(Sesion.ProfesorID, tareaID);
+            frm.ShowDialog(); // Abrir en modo edición
+            CargarTareas(); // Refrescar la lista después de editar
         }
+
 
         private void BtnEliminarTarea_Click(object sender, EventArgs e)
         {
             if (dgvTareasAsignadas.SelectedRows.Count > 0)
             {
                 int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value); //pendiente de que se llame id 
-                // AQUI SE IMPLEMENTA EL BACK PARA ELIMINAR LA TAREA DE LA BASE DE DATOS
-                cargarTareas();
+
+                // Confirmar eliminación
+                DialogResult result = MessageBox.Show("¿Estás seguro de que deseas eliminar esta tarea?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    try
+                    {
+                        using (MySqlConnection conexion = new MySqlConnection("server=localhost;database=usuarios;user=root;password="))
+                        {
+                            conexion.Open();
+                            string consulta = "DELETE FROM tareas WHERE id = @tareaID";
+
+                            using (MySqlCommand comando = new MySqlCommand(consulta, conexion))
+                            {
+                                comando.Parameters.AddWithValue("@tareaID", tareaID);
+                                comando.ExecuteNonQuery();
+                            }
+                        }
+                        MessageBox.Show("Tarea eliminada correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        CargarTareas(); // Actualizar el DataGridView después de eliminar la tarea
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error al eliminar la tarea: " + ex.Message);
+                    }
+                }
             }
             else
             {

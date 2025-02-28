@@ -27,67 +27,114 @@ namespace sistema_gestion_tareas
             Debug.WriteLine("Usuario ID recibido: " + profesorID);
         }
 
-        private void btnGuardar_Click(object sender, EventArgs e)
+        public frmAddEdit(int profesorID, int? tareaID = null)
         {
-            // Validar que todos los campos estén llenos
-            if (string.IsNullOrWhiteSpace(txtTitulo.Text))
-            {
-                MessageBox.Show("El título es obligatorio.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(txtDescription.Text))
-            {
-                MessageBox.Show("La descripción es obligatoria.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (dtpFechaEntrega.Value < DateTime.Now)
-            {
-                MessageBox.Show("La fecha de entrega no puede ser pasada.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (cbxAsignaturas.SelectedItem == null)
-            {
-                MessageBox.Show("Debes seleccionar una asignatura.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-            if (comboBox1.SelectedItem == null)
-            {
-                MessageBox.Show("Debes asignar al menos un grupo de estudiantes.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+            InitializeComponent();
+            this.profesorID = profesorID;
+            this.tareaID = tareaID;
+            conexionDB = new ConexionDB();
 
             // Mostrar el valor de profesorID para depuración
-            Debug.WriteLine($"profesorID: {profesorID}");
+            Debug.WriteLine("Usuario ID recibido: " + profesorID);
 
-            // Conectar a la base de datos y guardar la información
+            if (tareaID.HasValue)
+            {
+                CargarDatosTarea();
+            }
+        }
+
+        private void CargarDatosTarea()
+        {
             string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
                 try
                 {
                     conexion.Open();
-                    string consulta = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, grupo_asignado, profesor_id, materia) " +
-                                      "VALUES (@titulo, @descripcion, @fechaEntrega, @grupoAsignado, @profesorID, @materia)";
+                    string consulta = "SELECT titulo, descripcion, fecha_entrega, grupo_asignado, materia FROM tareas WHERE id = @tareaID";
+                    MySqlCommand cmd = new MySqlCommand(consulta, conexion);
+                    cmd.Parameters.AddWithValue("@tareaID", tareaID);
+
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        txtTitulo.Text = reader["titulo"].ToString();
+                        txtDescription.Text = reader["descripcion"].ToString();
+                        dtpFechaEntrega.Value = Convert.ToDateTime(reader["fecha_entrega"]);
+                        comboBox1.SelectedItem = reader["grupo_asignado"].ToString();
+                        cbxAsignaturas.SelectedItem = reader["materia"].ToString();
+                    }
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al cargar la tarea: " + ex.Message);
+                }
+            }
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            // Validar que todos los campos estén llenos
+            if (string.IsNullOrWhiteSpace(txtTitulo.Text) ||
+                string.IsNullOrWhiteSpace(txtDescription.Text) ||
+                cbxAsignaturas.SelectedItem == null ||
+                comboBox1.SelectedItem == null)
+            {
+                MessageBox.Show("Todos los campos son obligatorios.");
+                return;
+            }
+
+            string connectionString = "Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;";
+            using (MySqlConnection conexion = new MySqlConnection(connectionString))
+            {
+                try
+                {
+                    conexion.Open();
+                    string consulta;
+
+                    if (tareaID.HasValue)
+                    {
+                        // Si tareaID tiene valor, actualizar la tarea existente
+                        consulta = "UPDATE tareas SET titulo = @titulo, descripcion = @descripcion, " +
+                                   "fecha_entrega = @fechaEntrega, grupo_asignado = @grupoAsignado, " +
+                                   "materia = @materia WHERE id = @tareaID";
+                    }
+                    else
+                    {
+                        // Si no, crear una nueva tarea
+                        consulta = "INSERT INTO tareas (titulo, descripcion, fecha_entrega, grupo_asignado, profesor_id, materia) " +
+                                   "VALUES (@titulo, @descripcion, @fechaEntrega, @grupoAsignado, @profesorID, @materia)";
+                    }
 
                     MySqlCommand cmd = new MySqlCommand(consulta, conexion);
                     cmd.Parameters.AddWithValue("@titulo", txtTitulo.Text);
                     cmd.Parameters.AddWithValue("@descripcion", txtDescription.Text);
                     cmd.Parameters.AddWithValue("@fechaEntrega", dtpFechaEntrega.Value);
                     cmd.Parameters.AddWithValue("@grupoAsignado", comboBox1.SelectedItem.ToString());
-                    cmd.Parameters.AddWithValue("@profesorID", profesorID);
                     cmd.Parameters.AddWithValue("@materia", cbxAsignaturas.SelectedItem.ToString());
 
+                    if (tareaID.HasValue)
+                        cmd.Parameters.AddWithValue("@tareaID", tareaID);
+                    else
+                        cmd.Parameters.AddWithValue("@profesorID", profesorID);
+
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Datos guardados correctamente.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Tarea guardada correctamente.");
+                    this.Close();
                 }
-                catch (MySqlException ex) when (ex.Number == 1452)
-                {
-                    MessageBox.Show("El ID del profesor no existe en la tabla de profesores.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error al guardar la tarea: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Error al guardar: " + ex.Message);
                 }
+                this.Close(); // Cierra la ventana
+                dashboardProfesores dashboard = Application.OpenForms["dashboardProfesores"] as dashboardProfesores;
+                if (dashboard != null)
+                {
+                    dashboard.CargarTareas(); // Vuelve a cargar las tareas
+                }
+
             }
         }
 
@@ -95,44 +142,5 @@ namespace sistema_gestion_tareas
         {
             this.Close();
         }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTitulo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtTitulo_TextChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtDescription_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void dtpFechaEntrega_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void chkListaEstudiantes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
-
-
-
-

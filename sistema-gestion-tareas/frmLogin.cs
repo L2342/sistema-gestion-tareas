@@ -20,11 +20,6 @@ namespace sistema_gestion_tareas
             txtusername.Focus();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         public int ObtenerIdUsuario(string username, string password)
         {
             int idUsuario = -1;
@@ -43,6 +38,7 @@ namespace sistema_gestion_tareas
                     if (reader.Read())
                     {
                         idUsuario = reader.GetInt32("id");
+                        Debug.WriteLine($"Usuario encontrado: {idUsuario}");
                     }
                     else
                     {
@@ -83,11 +79,14 @@ namespace sistema_gestion_tareas
                 {
                     Debug.WriteLine("Login hecho");
                     // Guardar datos de sesión (puedes usar variables estáticas, propiedades de aplicación, etc.)
-                    int idUsuario = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
+                    int usuarioID = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
                     string role = datosUsuario.Rows[0]["rol"].ToString();
 
-                    // Mostrar el valor de idUsuario para depuración
-                    Debug.WriteLine($"idUsuario: {idUsuario}");
+                    // Mostrar el valor de usuarioID para depuración
+                    Debug.WriteLine($"usuarioID: {usuarioID}");
+
+                    // Guardar el ID del profesor en la sesión
+                    Sesion.ProfesorID = usuarioID;
 
                     // Llevar al dashboard dependiendo de su rol
                     if (role == "Estudiante")
@@ -101,10 +100,6 @@ namespace sistema_gestion_tareas
                         dashboardProfesores dashboardProfesores = new dashboardProfesores();
                         dashboardProfesores.Show();
                         this.Hide();
-
-                        // Redirigir al dashboard de profesores
-                        frmAddEdit addEditForm = new frmAddEdit(idUsuario);
-                        addEditForm.Show();
                     }
                 }
             }

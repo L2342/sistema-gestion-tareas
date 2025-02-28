@@ -75,7 +75,6 @@
             txtTitulo.PlaceholderText = "Escribe el título de la tarea";
             txtTitulo.Size = new Size(457, 32);
             txtTitulo.TabIndex = 2;
-            txtTitulo.TextChanged += txtTitulo_TextChanged_1;
             // 
             // label3
             // 
@@ -172,7 +171,6 @@
             label6.Size = new Size(207, 25);
             label6.TabIndex = 1;
             label6.Text = "Asignatura relacionada";
-            label6.Click += label6_Click;
             // 
             // cbxAsignaturas
             // 
@@ -193,7 +191,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(211, 28);
             comboBox1.TabIndex = 7;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // frmAddEdit
             // 
