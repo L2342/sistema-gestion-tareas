@@ -23,7 +23,7 @@ Si quieres probar el codigo desde cero, inicia sesion como estudiante, matricula
 
 <h4>Si quieres probar el código con un usuario ya creado y tareas asignadas ingresa con</h4>
 usuario: samuel
-contrasñea: Test123$$
+contraseña: Test123$$
 
 Si tienes problemas con las dependencias, asegúrate de instalar las librerías necesarias mediante NuGet.
 Para cualquier duda, contacta conmigo.
