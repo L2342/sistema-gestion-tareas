@@ -1,5 +1,10 @@
 <h1>Proyecto: Sistema de Gestión de Tareas</h1>
-
+<h3>PARTICIPANTES:</h3>
+<ol>
+   <li>Samuel David Bolivar Trujillo</li>
+   <li>Juan David Calderon Diaz</li>
+   <li>Daniela Fierro Madrigal</li>
+</ol>
 **Pasos para instalar:**
 1. Clona o descarga el proyecto.
 2. Importa la base de datos:
