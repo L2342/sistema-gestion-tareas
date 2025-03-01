@@ -11,3 +11,9 @@
    - Asegúrate de configurar el string de conexión con tus credenciales:
      Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;
 4. Ejecuta el proyecto desde tu IDE favorito (Visual Studio recomendado).
+
+Si quieres probar el codigo desde cero, inicia sesion como estudiante, matriculate a un grupo, registrate como profesor, añade una tarea a un grupo, actualiza las tareas, vuelve a tu sesion de estudiante y prueba las funcionalidades
+
+Si quieres probar el código con un usuario ya creado y tareas asignadas ingresa con
+usuario: samuel
+contrasñea: Test123$$
