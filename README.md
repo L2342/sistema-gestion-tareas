@@ -14,6 +14,6 @@
 
 Si quieres probar el codigo desde cero, inicia sesion como estudiante, matriculate a un grupo, registrate como profesor, añade una tarea a un grupo, actualiza las tareas, vuelve a tu sesion de estudiante y prueba las funcionalidades
 
-Si quieres probar el código con un usuario ya creado y tareas asignadas ingresa con
+<h4>Si quieres probar el código con un usuario ya creado y tareas asignadas ingresa con</h4>
 usuario: samuel
 contrasñea: Test123$$
