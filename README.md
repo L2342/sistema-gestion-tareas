@@ -6,16 +6,18 @@
    <li>Daniela Fierro Madrigal</li>
 </ol>
 **Pasos para instalar:**
-1. Clona o descarga el proyecto.
-2. Importa la base de datos:
+<ol>
+    <li>Clona o descarga el proyecto.</li>
+    <li> Importa la base de datos:
    - Abre phpMyAdmin.
    - Crea una base de datos llamada 'usuarios'.
-   - Importa el archivo 'usuarios.sql' desde la carpeta /sql.
-3. Configura el archivo de conexión:
-   - Abre 'src/Services/SistemaNotificaciones.cs'.
+   - Importa el archivo 'usuarios.sql' desde la carpeta /sql.</li>
+    <li>Configura el archivo de conexión</li>
+    <li> Abre 'src/Services/SistemaNotificaciones.cs'.
    - Asegúrate de configurar el string de conexión con tus credenciales:
-     Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;
-4. Ejecuta el proyecto desde tu IDE favorito (Visual Studio recomendado).
+     Server=localhost;Database=usuarios;Uid=root;Pwd=;Port=3306;SslMode=none;</li>
+    <li>4. Ejecuta el proyecto desde tu IDE favorito (Visual Studio recomendado).</li>
+</ol>
 
 Si quieres probar el codigo desde cero, inicia sesion como estudiante, matriculate a un grupo, registrate como profesor, añade una tarea a un grupo, actualiza las tareas, vuelve a tu sesion de estudiante y prueba las funcionalidades
 
