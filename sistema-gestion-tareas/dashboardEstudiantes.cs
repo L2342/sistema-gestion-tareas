@@ -9,12 +9,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using sistema_gestion_tareas.EstrategiasOrdenamiento;
+using sistema_gestion_tareas.Services;
 
 namespace sistema_gestion_tareas
 {
     public partial class dashBoard_Profesores : Form
     {
         private int estudianteID;
+        private SistemaNotificaciones sistemaNotificaciones;
 
         public dashBoard_Profesores()
         {
@@ -27,6 +29,9 @@ namespace sistema_gestion_tareas
             this.estudianteID = estudianteID;
             VerificarGrupoEstudiante();
             CargarTareasEstudiante();
+            sistemaNotificaciones = new SistemaNotificaciones();
+            sistemaNotificaciones.CargarTareas();
+            sistemaNotificaciones.CargarObservadores();
         }
 
         private void VerificarGrupoEstudiante()
@@ -257,7 +262,9 @@ namespace sistema_gestion_tareas
 
         private void form_Load(object sender, EventArgs e)
         {
-
+            timerVerificacion.Interval = 3600000;
+            timerVerificacion.Tick += timerVerificacion_Tick;
+            timerVerificacion.Start();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -278,6 +285,17 @@ namespace sistema_gestion_tareas
         private void cmbEstados_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnVerificarTareas_Click(object sender, EventArgs e)
+        {
+            sistemaNotificaciones.VerificarTareasPorEstudiante(estudianteID);
+            MessageBox.Show("Verificación de tareas completada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void timerVerificacion_Tick(object sender, EventArgs e)
+        {
+            sistemaNotificaciones.VerificarTareasPorEstudiante(estudianteID);
         }
     }
 }

@@ -27,6 +27,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dashBoard_Profesores));
             panel3 = new Panel();
             label3 = new Label();
@@ -50,6 +51,8 @@
             cmbCriterios = new ComboBox();
             btnOrdenar = new Button();
             mySqlCommandBuilder1 = new MySqlConnector.MySqlCommandBuilder();
+            btnVerificarTareas = new Button();
+            timerVerificacion = new System.Windows.Forms.Timer(components);
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -315,11 +318,32 @@
             mySqlCommandBuilder1.QuotePrefix = "`";
             mySqlCommandBuilder1.QuoteSuffix = "`";
             // 
+            // btnVerificarTareas
+            // 
+            btnVerificarTareas.BackColor = Color.BlueViolet;
+            btnVerificarTareas.Cursor = Cursors.Hand;
+            btnVerificarTareas.FlatStyle = FlatStyle.Flat;
+            btnVerificarTareas.Font = new Font("Nirmala UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnVerificarTareas.ForeColor = SystemColors.ButtonHighlight;
+            btnVerificarTareas.Location = new Point(205, 470);
+            btnVerificarTareas.Name = "btnVerificarTareas";
+            btnVerificarTareas.Size = new Size(265, 35);
+            btnVerificarTareas.TabIndex = 7;
+            btnVerificarTareas.Text = "Verificar Tareas proximas a vencer";
+            btnVerificarTareas.UseVisualStyleBackColor = false;
+            btnVerificarTareas.Click += btnVerificarTareas_Click;
+            // 
+            // timerVerificacion
+            // 
+            timerVerificacion.Interval = 3600000;
+            timerVerificacion.Tick += timerVerificacion_Tick;
+            // 
             // dashBoard_Profesores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(932, 538);
+            Controls.Add(btnVerificarTareas);
             Controls.Add(btnOrdenar);
             Controls.Add(btnCambiarEstado);
             Controls.Add(cmbCriterios);
@@ -371,5 +395,7 @@
         private ComboBox cmbGrupos;
         private PictureBox pictureBox2;
         private MySqlConnector.MySqlCommandBuilder mySqlCommandBuilder1;
+        private Button btnVerificarTareas;
+        private System.Windows.Forms.Timer timerVerificacion;
     }
 }
