@@ -10,9 +10,8 @@
 
 namespace sistema_gestion_tareas.Properties {
     using System;
-    using System.Drawing;
-
-
+    
+    
     /// <summary>
     ///   Clase de recurso fuertemente tipado, para buscar cadenas traducidas, etc.
     /// </summary>
@@ -24,7 +23,7 @@ namespace sistema_gestion_tareas.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
-        internal static Image logout_16__1_;
+        
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
@@ -84,6 +83,16 @@ namespace sistema_gestion_tareas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap house_16__1_ {
+            get {
+                object obj = ResourceManager.GetObject("house-16 (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap IconUsuario {
             get {
                 object obj = ResourceManager.GetObject("IconUsuario", resourceCulture);
@@ -94,9 +103,39 @@ namespace sistema_gestion_tareas.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap IconUsuario_1_ {
+            get {
+                object obj = ResourceManager.GetObject("IconUsuario(1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logo_colegio {
+            get {
+                object obj = ResourceManager.GetObject("logo-colegio", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap logout_16 {
             get {
                 object obj = ResourceManager.GetObject("logout-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap logout_16__1_ {
+            get {
+                object obj = ResourceManager.GetObject("logout-16 (1)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

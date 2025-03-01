@@ -121,6 +121,9 @@
   <data name="IconUsuario" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\IconUsuario.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logout-16 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logout-16 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="logout-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\logout-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -136,7 +139,7 @@
   <data name="house-16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\house-16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="logout-16 (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\logout-16 (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="logo-colegio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\logo-colegio.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

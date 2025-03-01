@@ -31,6 +31,7 @@
             panel3 = new Panel();
             label3 = new Label();
             panel1 = new Panel();
+            pictureBox2 = new PictureBox();
             btnGuardarGrupo = new Button();
             cmbGrupos = new ComboBox();
             PnlNav = new Panel();
@@ -49,13 +50,12 @@
             cmbCriterios = new ComboBox();
             btnOrdenar = new Button();
             mySqlCommandBuilder1 = new MySqlConnector.MySqlCommandBuilder();
-            pictureBox2 = new PictureBox();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvTareasDisponibles).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // panel3
@@ -95,6 +95,17 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(186, 538);
             panel1.TabIndex = 2;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.logo_colegio;
+            pictureBox2.InitialImage = (Image)resources.GetObject("pictureBox2.InitialImage");
+            pictureBox2.Location = new Point(34, 359);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(124, 121);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox2.TabIndex = 8;
+            pictureBox2.TabStop = false;
             // 
             // btnGuardarGrupo
             // 
@@ -304,17 +315,6 @@
             mySqlCommandBuilder1.QuotePrefix = "`";
             mySqlCommandBuilder1.QuoteSuffix = "`";
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.InitialImage = (Image)resources.GetObject("pictureBox2.InitialImage");
-            pictureBox2.Location = new Point(34, 359);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(124, 121);
-            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox2.TabIndex = 8;
-            pictureBox2.TabStop = false;
-            // 
             // dashBoard_Profesores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -338,11 +338,11 @@
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvTareasDisponibles).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
