@@ -58,6 +58,10 @@ namespace sistema_gestion_tareas
                         CargarGrupos();
                     }
                 }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al conectarse a la base de datos: " + ex.Message);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error al verificar el grupo del estudiante: " + ex.Message);
@@ -107,6 +111,10 @@ namespace sistema_gestion_tareas
                         MessageBox.Show("No se pudo asignar el grupo. Puede que ya tengas un grupo asignado.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al conectarse a la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error al guardar el grupo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -145,6 +153,10 @@ namespace sistema_gestion_tareas
                             }
                         }
                     }
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show("Error al conectarse a la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
@@ -214,6 +226,10 @@ namespace sistema_gestion_tareas
                         }
                     }
                 }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectarse a la base de datos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
