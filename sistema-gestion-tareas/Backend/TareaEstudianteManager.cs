@@ -66,10 +66,38 @@ namespace sistema_gestion_tareas
                     }
 
                     MessageBox.Show("Tarea asignada correctamente a los estudiantes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
+                } 
+                catch (MySqlException ex) when(ex.Number == 1042)
                 {
-                    MessageBox.Show("Error al asignar la tarea a los estudiantes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede conectar al servidor MySQL: " + ex.Message, "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) when(ex.Number == 1045)
+                {
+                                MessageBox.Show("Error de autenticación con la base de datos: " + ex.Message, "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) when(ex.Number == 1062)
+                {
+                                MessageBox.Show("Ya existe un registro con estos datos: " + ex.Message, "Error de duplicidad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) 
+                {
+                                MessageBox.Show("Error en la base de datos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (InvalidOperationException ex) 
+                {
+                                MessageBox.Show("Error de operación inválida: " + ex.Message, "Error de operación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (FormatException ex) 
+                {
+                                MessageBox.Show("Error de formato en los datos: " + ex.Message, "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (TimeoutException ex) 
+                {
+                                MessageBox.Show("La operación excedió el tiempo límite: " + ex.Message, "Error de tiempo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (Exception ex) 
+                {
+                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -153,10 +181,39 @@ namespace sistema_gestion_tareas
                     }
 
                     MessageBox.Show("Tareas actualizadas correctamente para los estudiantes.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                catch (Exception ex)
+               
+                } 
+                catch (MySqlException ex) when(ex.Number == 1042)
                 {
-                    MessageBox.Show("Error al actualizar las tareas de los estudiantes: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                MessageBox.Show("No se puede conectar al servidor MySQL: " + ex.Message, "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) when(ex.Number == 1045)
+                {
+                                MessageBox.Show("Error de autenticación con la base de datos: " + ex.Message, "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) when(ex.Number == 1062)
+                {
+                                MessageBox.Show("Ya existe un registro con estos datos: " + ex.Message, "Error de duplicidad", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (MySqlException ex) 
+                {
+                                MessageBox.Show("Error en la base de datos: " + ex.Message, "Error MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (InvalidOperationException ex) 
+                {
+                                MessageBox.Show("Error de operación inválida: " + ex.Message, "Error de operación", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (FormatException ex) 
+                {
+                                MessageBox.Show("Error de formato en los datos: " + ex.Message, "Error de formato", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (TimeoutException ex) 
+                {
+                                MessageBox.Show("La operación excedió el tiempo límite: " + ex.Message, "Error de tiempo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            } 
+                catch (Exception ex) 
+                {
+                                MessageBox.Show("Error inesperado: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }

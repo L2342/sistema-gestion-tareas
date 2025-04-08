@@ -3,6 +3,7 @@ using System.Data;
 using MySql.Data.MySqlClient;
 using System.Security.Cryptography;
 using System.Text;
+using System.Security;
 
 public class UsuariosBD
 {
@@ -58,9 +59,39 @@ public class UsuariosBD
             int filasAfectadas = cmd.ExecuteNonQuery();
             return filasAfectadas > 0;
         }
+        catch (MySqlException ex) when (ex.Number == 1042)
+        {
+            Console.WriteLine($"No se puede conectar al servidor de base de datos: {ex.Message}");
+            return false;
+        }
+        catch (MySqlException ex) when (ex.Number == 1062)
+        {
+            Console.WriteLine($"El usuario ya existe en la base de datos: {ex.Message}");
+            return false;
+        }
+        catch (MySqlException ex)
+        {
+            Console.WriteLine($"Error de MySQL: {ex.Message}");
+            return false;
+        }
+        catch (NullReferenceException ex)
+        {
+            Console.WriteLine($"Error de referencia nula (posiblemente fallo en la conexión): {ex.Message}");
+            return false;
+        }
+        catch (InvalidCastException ex)
+        {
+            Console.WriteLine($"Error de conversión de tipo de datos: {ex.Message}");
+            return false;
+        }
+        catch (SecurityException ex)
+        {
+            Console.WriteLine($"Error de seguridad al calcular el hash: {ex.Message}");
+            return false;
+        }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error al registrar usuario: {ex.Message}");
+            Console.WriteLine($"Error inesperado: {ex.Message}");
             return false;
         }
         finally
@@ -149,9 +180,39 @@ public class UsuariosBD
 
             return tablaUsuario;
         }
-        catch (Exception ex)
+        catch (MySqlException ex) when(ex.Number == 1042)
         {
-            Console.WriteLine($"Error al obtener usuario: {ex.Message}");
+            Console.WriteLine($"No se puede conectar al servidor de base de datos: {ex.Message}");
+            return null;
+        } 
+        catch (MySqlException ex) when(ex.Number == 1062)
+        {
+            Console.WriteLine($"El usuario ya existe en la base de datos: {ex.Message}");
+            return null;
+        } 
+        catch (MySqlException ex) 
+        {
+            Console.WriteLine($"Error de MySQL: {ex.Message}");
+            return null;
+        } 
+        catch (NullReferenceException ex) 
+        {
+            Console.WriteLine($"Error de referencia nula (posiblemente fallo en la conexión): {ex.Message}");
+            return null;
+        } 
+        catch (InvalidCastException ex) 
+        {
+            Console.WriteLine($"Error de conversión de tipo de datos: {ex.Message}");
+            return null;
+        } 
+        catch (SecurityException ex) 
+        {
+            Console.WriteLine($"Error de seguridad al calcular el hash: {ex.Message}");
+            return null;
+        } 
+        catch (Exception ex) 
+        {
+            Console.WriteLine($"Error inesperado: {ex.Message}");
             return null;
         }
         finally
