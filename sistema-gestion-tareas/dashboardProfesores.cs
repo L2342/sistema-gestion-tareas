@@ -85,6 +85,14 @@ namespace sistema_gestion_tareas
                     }
                 }
             }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show("Error al conectarse a la base de datos: " + ex.Message, "Error de Base de Datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Operación inválida: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Error al cargar las tareas: " + ex.Message);
@@ -170,18 +178,39 @@ namespace sistema_gestion_tareas
                 MessageBox.Show("Selecciona una tarea para asignar.");
                 return;
             }
+            DataGridViewRow filaSeleccionada = dgvTareasAsignadas.SelectedRows[0];
 
-            int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value);
-            string grupoTarea = dgvTareasAsignadas.SelectedRows[0].Cells["grupo_asignado"].Value?.ToString() ?? string.Empty;
-            string estado = "Pendiente"; // Estado inicial de la tarea
-            DateTime fecha = Convert.ToDateTime(dgvTareasAsignadas.SelectedRows[0].Cells["fecha_entrega"].Value);
-            string materia = dgvTareasAsignadas.SelectedRows[0].Cells["materia"].Value?.ToString() ?? string.Empty;
+            if (filaSeleccionada.Cells["id"].Value == null ||
+            filaSeleccionada.Cells["grupo_asignado"].Value == null ||
+            filaSeleccionada.Cells["fecha_entrega"].Value == null ||
+            filaSeleccionada.Cells["materia"].Value == null)
+            {
+                MessageBox.Show("La fila seleccionada tiene datos incompletos. Por favor, verifica e inténtalo de nuevo.",
+                                "Datos Incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                int tareaID = Convert.ToInt32(dgvTareasAsignadas.SelectedRows[0].Cells["id"].Value);
+                string grupoTarea = dgvTareasAsignadas.SelectedRows[0].Cells["grupo_asignado"].Value?.ToString() ?? string.Empty;
+                string estado = "Pendiente"; // Estado inicial de la tarea
+                DateTime fecha = Convert.ToDateTime(dgvTareasAsignadas.SelectedRows[0].Cells["fecha_entrega"].Value);
+                string materia = dgvTareasAsignadas.SelectedRows[0].Cells["materia"].Value?.ToString() ?? string.Empty;
 
-            Debug.WriteLine($"AcTarea_Click - tareaID: {tareaID}, grupoTarea: {grupoTarea}, estado: {estado}, fecha: {fecha}, materia: {materia}");
+                Debug.WriteLine($"AcTarea_Click - tareaID: {tareaID}, grupoTarea: {grupoTarea}, estado: {estado}, fecha: {fecha}, materia: {materia}");
 
-            // Consolidar la lógica en un solo método
-            TareaEstudianteManager tareaEstudianteManager = new TareaEstudianteManager();
-            tareaEstudianteManager.AsignarTareaAEstudiante(tareaID, grupoTarea, estado, fecha, materia);
+                // Consolidar la lógica en un solo método
+                TareaEstudianteManager tareaEstudianteManager = new TareaEstudianteManager();
+                tareaEstudianteManager.AsignarTareaAEstudiante(tareaID, grupoTarea, estado, fecha, materia);
+            } catch(FormatException ex)
+            {
+                MessageBox.Show("El formato de algunos datos en la fila seleccionada no es válido " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al asignar la tarea Por favor, inténtalo de nuevo.: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
     }
 }
