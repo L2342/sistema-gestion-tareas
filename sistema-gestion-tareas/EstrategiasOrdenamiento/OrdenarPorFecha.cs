@@ -11,7 +11,20 @@ namespace sistema_gestion_tareas.EstrategiasOrdenamiento
     {
         public void Ordenar(DataGridView dgvTareasAsignadas)
         {
-            dgvTareasAsignadas.Sort(dgvTareasAsignadas.Columns["fecha_entrega"],System.ComponentModel.ListSortDirection.Ascending);
+            try
+            {
+                if (!dgvTareasAsignadas.Columns.Contains("fecha_entrega"))
+                    throw new InvalidOperationException("La columna 'fecha_entrega' no existe en el DataGridView.");
+                // Verificar si la columna "fecha_entrega" está configurada para ser ordenada
+                if (dgvTareasAsignadas.Columns["fecha_entrega"].SortMode == DataGridViewColumnSortMode.NotSortable)
+                    throw new InvalidOperationException("La columna 'fecha_entrega' no está configurada para ser ordenada.");
+                dgvTareasAsignadas.Sort(dgvTareasAsignadas.Columns["fecha_entrega"], System.ComponentModel.ListSortDirection.Ascending);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al ordenar por fecha: {ex.Message}", "Error de Ordenamiento", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
         }
     }
 }

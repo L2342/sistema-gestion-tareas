@@ -17,11 +17,23 @@ namespace sistema_gestion_tareas.Models
 
         public void AgregarObservador(IObservador observador)
         {
+            if (observador == null)
+                throw new ArgumentNullException(nameof(observador), "El observador no puede ser nulo.");
+
+            if (observadores.Contains(observador))
+                throw new InvalidOperationException("El observador ya está registrado.");
+
             observadores.Add(observador);
         }
 
         public void EliminarObservador(IObservador observador)
         {
+            if (observador == null)
+                throw new ArgumentNullException(nameof(observador), "El observador no puede ser nulo.");
+
+            if (!observadores.Remove(observador))
+                throw new InvalidOperationException("El observador no está registrado y no puede ser eliminado.");
+
             observadores.Remove(observador);
         }
 

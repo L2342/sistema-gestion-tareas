@@ -17,59 +17,91 @@ namespace sistema_gestion_tareas.Services
         {
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
-                conexion.Open();
                 string consulta = "SELECT id, titulo, fecha_entrega FROM tareas";
-
-                using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
-                    while (reader.Read())
+                    conexion.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        tareas.Add(new Tarea
+                        while (reader.Read())
                         {
-                            TareaId = Convert.ToInt32(reader["id"]),
-                            Titulo = reader["titulo"].ToString(),
-                            FechaEntrega = Convert.ToDateTime(reader["fecha_entrega"])
-                        });
+                            tareas.Add(new Tarea
+                            {
+                                TareaId = Convert.ToInt32(reader["id"]),
+                                Titulo = reader["titulo"].ToString(),
+                                FechaEntrega = Convert.ToDateTime(reader["fecha_entrega"])
+                            });
+                        }
                     }
+                    Console.WriteLine("Tareas cargadas correctamente.");
+                } catch(MySqlException ex)
+                {
+                    MessageBox.Show($"Error al conectar a la base de datos: {ex.Message}","Error",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    return;
                 }
-            }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cargar las tareas: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
 
-            Console.WriteLine("Tareas cargadas correctamente.");
+                }
+
+            }
         }
         // Método para cargar los observadores (estudiantes) asociados a las tareas
         public void CargarObservadores()
         {
             using (MySqlConnection conexion = new MySqlConnection(connectionString))
             {
-                conexion.Open();
                 string consulta = @"
                 SELECT te.tarea_id, te.estudiante_id
                 FROM tarea_estudiante te";
-
-                using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
-                using (MySqlDataReader reader = cmd.ExecuteReader())
+                try
                 {
-                    while (reader.Read())
+                    conexion.Open();
+                    using (MySqlCommand cmd = new MySqlCommand(consulta, conexion))
+                    using (MySqlDataReader reader = cmd.ExecuteReader())
                     {
-                        int tareaId = Convert.ToInt32(reader["tarea_id"]);
-                        int estudianteId = Convert.ToInt32(reader["estudiante_id"]);
-
-                        
-                        var estudiante = new Estudiante(estudianteId);
-
-                        // Buscar la tarea correspondiente y agregar el observador
-                        var tarea = tareas.Find(t => t.TareaId == tareaId);
-                        if (tarea != null && !tarea.Observadores.Any(o => o is Estudiante e && e.EstudianteID == estudianteId))
+                        while (reader.Read())
                         {
-                            tarea.AgregarObservador(estudiante);
+                            int tareaId = Convert.ToInt32(reader["tarea_id"]);
+                            int estudianteId = Convert.ToInt32(reader["estudiante_id"]);
+
+
+                            var estudiante = new Estudiante(estudianteId);
+
+                            // Buscar la tarea correspondiente y agregar el observador
+                            var tarea = tareas.Find(t => t.TareaId == tareaId);
+                            if (tarea == null)
+                            {
+                                Console.WriteLine($"No se encontró la tarea con ID: {tareaId}. Saltando...");
+                                continue;
+                            }
+                            if (!tarea.Observadores.Any(o => o is Estudiante e && e.EstudianteID == estudianteId))
+                            {
+                                tarea.AgregarObservador(estudiante);
+                            }
+                            Console.WriteLine("Observadores cargados correctamente.");
+
                         }
-          
                     }
+
                 }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Error al conectar a la base de datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cargar los observadores: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+               
             }
 
-            Console.WriteLine("Observadores cargados correctamente.");
+            
         }
         // Método para verificar la proximidad de las tareas y notificar a los observadores
         
@@ -82,6 +114,11 @@ namespace sistema_gestion_tareas.Services
             {
                 // Obtenemos los observadores de la tarea
                 var observadores = tarea.ObtenerObservadores();
+                if (!observadores.Any())
+                {
+                    Console.WriteLine($"La tarea '{tarea.Titulo}' no tiene observadores. Saltando...");
+                    continue;
+                }
 
                 // Verificamos si el estudiante actual está asociado a la tarea
                 var observadorActual = observadores.FirstOrDefault(o => o is Estudiante estudiante && estudiante.EstudianteID == estudianteId);
