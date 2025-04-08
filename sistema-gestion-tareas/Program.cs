@@ -1,3 +1,5 @@
+using MySql.Data.MySqlClient;
+
 namespace sistema_gestion_tareas
 {
     internal static class Program
@@ -8,19 +10,30 @@ namespace sistema_gestion_tareas
         [STAThread]
         static void Main()
         {
+            try
+            {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.SetHighDpiMode(HighDpiMode.SystemAware);
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            //Application.Run(new frmLogin());
+                try
+                {
+                    ConexionDB conexion = new ConexionDB();
+                    conexion.Conectar(); // Verificación de conexión
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Error de conexión a la base de datos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return; // Terminar la aplicación si no hay conexión
+                }
 
-            ConexionDB conexion = new ConexionDB();
-            conexion.Conectar(); // Llamada a la conexión para verificar que funciona
-
-
-
-            ApplicationConfiguration.Initialize();
-            Application.Run(new frmRegister());
+                ApplicationConfiguration.Initialize();
+                Application.Run(new frmRegister());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al iniciar la aplicación: {ex.Message}", "Error crítico", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

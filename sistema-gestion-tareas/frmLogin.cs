@@ -47,6 +47,26 @@ namespace sistema_gestion_tareas
                         Debug.WriteLine("No se encontró el usuario con las credenciales proporcionadas.");
                     }
                 }
+                catch (MySqlException ex) when (ex.Number == 1042)
+                {
+                    MessageBox.Show("No se puede conectar al servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (MySqlException ex) when (ex.Number == 1045)
+                {
+                    MessageBox.Show("Error de autenticación con la base de datos.", "Error de acceso", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Error de MySQL: {ex.Message}", "Error de base de datos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (NullReferenceException ex)
+                {
+                    MessageBox.Show("Error al acceder a un objeto no inicializado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (InvalidCastException ex)
+                {
+                    MessageBox.Show("Error al convertir datos entre tipos incompatibles.", "Error de conversión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Error al obtener el ID del usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -57,70 +77,117 @@ namespace sistema_gestion_tareas
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string username = txtusername.Text;
-            string password = txtPassword.Text;
-
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            try
             {
-                MessageBox.Show("Todos los campos son obligatorios.", "Inicio de Sesion fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
+                string username = txtusername.Text;
+                string password = txtPassword.Text;
 
-            // Crear instancia de la clase UsuariosBD
-            UsuariosBD usuariosBD = new UsuariosBD();
-
-            // Intentar validar el login
-            bool loginValido = usuariosBD.ValidarLogin(username, password, "Estudiante") || usuariosBD.ValidarLogin(username, password, "Profesor");
-
-            if (loginValido)
-            {
-                // Obtener información del usuario
-                DataTable datosUsuario = usuariosBD.ObtenerUsuario(username);
-
-                if (datosUsuario != null && datosUsuario.Rows.Count > 0)
+                if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
                 {
-                    Debug.WriteLine("Login hecho");
-                    // Guardar datos de sesión (puedes usar variables estáticas, propiedades de aplicación, etc.)
-                    int usuarioID = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
-                    string role = datosUsuario.Rows[0]["rol"].ToString();
+                    MessageBox.Show("Todos los campos son obligatorios.", "Inicio de Sesion fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                    // Mostrar el valor de usuarioID para depuración
-                    Debug.WriteLine($"usuarioID: {usuarioID}");
+                // Crear instancia de la clase UsuariosBD
+                UsuariosBD usuariosBD = new UsuariosBD();
 
-                    // Guardar el ID del usuario en la sesión
-                    if (role == "Estudiante")
+                // Intentar validar el login
+                bool loginValido = false;
+                try
+                {
+                    loginValido = usuariosBD.ValidarLogin(username, password, "Estudiante") ||
+                                 usuariosBD.ValidarLogin(username, password, "Profesor");
+                }
+                catch (MySqlException ex) when (ex.Number == 1042)
+                {
+                    MessageBox.Show("No se puede conectar al servidor de base de datos.", "Error de conexión", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                catch (MySqlException ex)
+                {
+                    MessageBox.Show($"Error en la base de datos: {ex.Message}", "Error de MySQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                if (loginValido)
+                {
+                    // Obtener información del usuario
+                    DataTable datosUsuario = null;
+                    try
                     {
-                        Sesion.EstudianteID = usuarioID;
+                        datosUsuario = usuariosBD.ObtenerUsuario(username);
                     }
-                    else if (role == "Profesor")
+                    catch (MySqlException ex)
                     {
-                        Sesion.ProfesorID = usuarioID;
+                        MessageBox.Show($"Error al obtener datos del usuario: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
 
-                    // Llevar al dashboard dependiendo de su rol
-                    if (role == "Estudiante")
+                    if (datosUsuario != null && datosUsuario.Rows.Count > 0)
                     {
-                        dashBoard_Profesores dashboardEstudiantes = new dashBoard_Profesores(usuarioID);
-                        dashboardEstudiantes.Show();
-                        this.Hide();
+                        try
+                        {
+                            Debug.WriteLine("Login hecho");
+                            // Guardar datos de sesión
+                            int usuarioID = Convert.ToInt32(datosUsuario.Rows[0]["id"]);
+                            string role = datosUsuario.Rows[0]["rol"].ToString();
+
+                            Debug.WriteLine($"usuarioID: {usuarioID}");
+
+                            // Guardar el ID del usuario en la sesión
+                            if (role == "Estudiante")
+                            {
+                                Sesion.EstudianteID = usuarioID;
+                            }
+                            else if (role == "Profesor")
+                            {
+                                Sesion.ProfesorID = usuarioID;
+                            }
+
+                            // Llevar al dashboard dependiendo de su rol
+                            if (role == "Estudiante")
+                            {
+                                dashBoard_Profesores dashboardEstudiantes = new dashBoard_Profesores(usuarioID);
+                                dashboardEstudiantes.Show();
+                                this.Hide();
+                            }
+                            else if (role == "Profesor")
+                            {
+                                dashboardProfesores dashboardProfesores = new dashboardProfesores();
+                                dashboardProfesores.Show();
+                                this.Hide();
+                            }
+                        }
+                        catch (InvalidCastException ex)
+                        {
+                            MessageBox.Show("Error al procesar los datos del usuario: formato incompatible.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        catch (NullReferenceException ex)
+                        {
+                            MessageBox.Show("Error al acceder a los datos del usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
-                    else if (role == "Profesor")
+                    else
                     {
-                        dashboardProfesores dashboardProfesores = new dashboardProfesores();
-                        dashboardProfesores.Show();
-                        this.Hide();
+                        MessageBox.Show("No se pudo obtener la información del usuario.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Usuario o Contraseña Invalidos, por favor intente nuevamente", "Inicio Sesión fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    txtusername.Text = "";
+                    txtPassword.Text = "";
+                    txtusername.Focus();
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Usuario o Contraseña Invalidos, por favor intente nuevamente", "Inicio Sesión fallido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtusername.Text = "";
-                txtPassword.Text = "";
-                txtusername.Focus();
+                // Captura general para cualquier excepción no manejada específicamente
+                MessageBox.Show($"Ha ocurrido un error inesperado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         private void button2_Click(object sender, EventArgs e)
         {
             txtusername.Text = "";
